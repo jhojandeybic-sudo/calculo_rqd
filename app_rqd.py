@@ -318,7 +318,7 @@ st.markdown("<hr>", unsafe_allow_html=True)
 # ==============================================================================
 # AUDITORÍA DE MATRIZ COMPLETA
 # ==============================================================================
-st.subheader("Matriz de Doble Entrada Completa: GSI Modificado")
+st.subheader("Matriz de GSI Modificado")
 
 filas_tabla = [
     "<b>LEVEMENTE FRACTURADA (LF)</b><br><small style='color:#94a3b8;'>Tres a menos sistemas muy espaciados<br><b>RQD 75 - 90%</b> (2 a 6 frac/m)</small>",
