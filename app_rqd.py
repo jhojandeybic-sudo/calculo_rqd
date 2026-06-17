@@ -177,7 +177,7 @@ datos_condicion = {
 info_activa = datos_condicion[condicion_seleccionada]
 st.sidebar.markdown(f"""
     <div class="panel-orientacion-oscuro" style="border-left-color: {info_activa['color']};">
-        <b style="color: {info_activa['color']}; font-size: 13px;">🔬 Ensayo de Campo (Picota):</b><br>
+        <b style="color: {info_activa['color']}; font-size: 13px;">🔬 Condición:</b><br>
         <b>Estado:</b> {info_activa['desc']}<br>
         <b>Comportamiento:</b> <code style='color: #000000; background-color:#ffffff; padding:2px 4px; font-weight:bold; border-radius:3px;'>{info_activa['picota']}</code>
     </div>
