@@ -14,15 +14,20 @@ if __name__ == "__main__":
 # ==============================================================================
 
 st.set_page_config(
-    page_title="GSI Modificado - Ajuste Real Hoek", 
+    page_title="GSI Modificado - Contraste Total", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# ESTILOS CSS: Premium Dark Mode de Alta Densidad y Contraste Nitido
+# ESTILOS CSS REFORZADOS: Sincronización cromática absoluta (Lado Izquierdo + Lado Derecho)
 st.markdown("""
     <style>
-    .stApp { background-color: #090d16; }
+    /* 1. LIENZO GENERAL (Fondo del cuerpo derecho) */
+    .stApp { 
+        background-color: #090d16 !important; 
+    }
+    
+    /* 2. BLOQUE GENERAL DE CONTENIDO */
     .block-container {
         background-color: #0f172a;
         padding: 2.5rem;
@@ -30,6 +35,37 @@ st.markdown("""
         box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
         margin-top: 1rem;
     }
+
+    /* 3. CORRECCIÓN RADICAL DE LA BARRA LATERAL (Lado Izquierdo) */
+    [data-testid="stSidebar"] {
+        background-color: #0f172a !important; /* Mismo fondo oscuro elegante */
+        border-right: 1px solid #1e293b;
+    }
+    
+    /* Forzar color de textos, etiquetas y títulos en la barra lateral */
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3, 
+    [data-testid="stSidebar"] p, 
+    [data-testid="stSidebar"] label, 
+    [data-testid="stSidebar"] span {
+        color: #f8fafc !important; /* Blanco puro de alta visibilidad */
+    }
+
+    /* Estilización de los campos numéricos y selectores en la barra lateral */
+    [data-testid="stSidebar"] div[data-baseweb="input"] {
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
+    }
+    [data-testid="stSidebar"] input {
+        color: #ffffff !important; /* Texto interno de cajas en blanco */
+    }
+    [data-testid="stSidebar"] div[data-baseweb="select"] {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
+    }
+
+    /* 4. COMPONENTES DEL PANEL GENERAL */
     h1, h2, h3, p, span, label { color: #f8fafc !important; }
     div[data-testid="stMetricValue"] { color: #38bdf8 !important; font-weight: bold; }
     div[data-testid="stMetricLabel"] { color: #94a3b8 !important; }
@@ -44,6 +80,8 @@ st.markdown("""
         font-size: 13px;
         color: #cbd5e1;
     }
+    
+    /* TABLA MATRICIAL */
     .tabla-gsi-oscura { 
         width: 100%; 
         border-collapse: collapse; 
@@ -68,7 +106,7 @@ st.markdown("<p style='color: #94a3b8;'>Restricción rigurosa de fronteras litol
 st.markdown("<hr style='border-color: #334155;'>", unsafe_allow_html=True)
 
 # ==============================================================================
-# BARRA LATERAL: CAPTURA DE PARAMETROS DE CAMPO
+# BARRA LATERAL: CAPTURA DE PARAMETROS (AHORA CON ALTO CONTRASTE)
 # ==============================================================================
 st.sidebar.header("🛠️ 1. Datos del Testigo (Core Run)")
 
@@ -77,7 +115,7 @@ num_fragmentos = st.sidebar.number_input("N° de Fragmentos Registrados:", min_v
 
 st.sidebar.subheader("📐 Registro de Longitudes (cm):")
 fragmentos = []
-valores_defecto = [25, 15, 0, 18, 32]
+valores_defecto = [25, 15, 18, 32, 32]
 
 for i in range(int(num_fragmentos)):
     val_def = valores_defecto[i] if i < len(valores_defecto) else 10
@@ -117,7 +155,6 @@ fragmentos_validos = [f for f in fragmentos if f >= 10]
 suma_validos = sum(fragmentos_validos)
 rqd = (suma_validos / longitud_total) * 100 if longitud_total > 0 else 0.0
 
-# Asignación de Fila Geotécnica según RQD
 if rqd > 75 and rqd <= 90:
     fila_activa, estructura_label = 0, "LEVEMENTE FRACTURADA (LF)"
 elif rqd > 50 and rqd <= 75:
@@ -132,7 +169,6 @@ else:
 
 col_activa = ["MUY BUENA (MB)", "BUENA (B)", "REGULAR (R)", "POBRE (P)", "MUY POBRE (MP)"].index(condicion_seleccionada)
 
-# Nombres de códigos estándar de las celdas
 matriz_letras = [
     ["LF/MB", "LF/B", "LF/R", "LF/P", "LF/MP"],
     ["F/MB",  "F/B",  "F/R",  "F/P",  "F/MP"],
@@ -141,8 +177,7 @@ matriz_letras = [
     ["T/MB",  "T/B",  "T/R",  "T/P",  "T/MP"]
 ]
 
-# MATRIZ CORREGIDA HOEK: Valores exactos donde intersectan las líneas negras del ábaco original.
-# Se usa "N/A" para las casillas donde la línea no existe o no llega físicamente en el gráfico.
+# Matriz real fiel a los cortes de línea negra observados
 matriz_valores_gsi = [
     ["95-90", "85-80", "75-70", "60-55", "N/A"],
     ["90-80", "75-70", "65-60", "55-50", "40-35"],
@@ -165,13 +200,12 @@ with col_izq:
     st.markdown(f"**Estructura Clasificada:** <span style='color:#38bdf8;'>{estructura_label}</span>", unsafe_allow_html=True)
     st.markdown(f"**Condición de Juntas:** <span style='color:{info_activa['color']};'>{condicion_seleccionada}</span>", unsafe_allow_html=True)
     
-    # Renderizado condicional dinámico si cae en zona vacía o válida
     if valor_gsi_final == "N/A":
         st.markdown(f"""
             <div style='background-color: #7f1d1d; padding: 18px; border-radius: 8px; border: 1px solid #f87171; margin-top: 15px;'>
                 <span style='color: #fca5a5; font-size: 13px; font-weight: bold;'>⚠️ CONDICIÓN INEXISTENTE:</span><br>
                 <span style='font-size: 22px; color: #ffffff; font-weight: bold;'>GSI: No Definido (N/A)</span><br>
-                <span style='color: #fca5a5; font-size: 12px;'>La combinación <b>{codigo_final}</b> queda fuera del dominio de isolíneas del ábaco real.</span>
+                <span style='color: #fca5a5; font-size: 12px;'>La combinación <b>{codigo_final}</b> queda fuera de las líneas del ábaco real.</span>
             </div>
         """, unsafe_allow_html=True)
     else:
@@ -204,15 +238,13 @@ with col_der:
         
     html_sondaje += "</div>"
     st.markdown(html_sondaje, unsafe_allow_html=True)
-    st.markdown("<p style='font-size:11px; text-align:center; margin-top:6px;'><span style='color:#0284c7;'>■</span> Apto (≥10cm) &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#dc2626;'>■</span> Rechazado (<10cm) &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#f43f5e;'>■</span> Fractura Directa (0cm) &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#334155;'>■</span> Pérdida</p>", unsafe_allow_html=True)
 
 st.markdown("<br><hr style='border-color: #334155;'>", unsafe_allow_html=True)
 
 # ==============================================================================
-# AUDITORÍA MATRICIAL AUDITADA RIGUROSAMENTE CON FILTRADO DE CASILLAS VACÍAS
+# AUDITORÍA MATRICIAL COMPLETA DEL ÁBACO REAL DE HOEK
 # ==============================================================================
 st.subheader("🗺️ Verificación en la Malla de Isolíneas del Ábaco Real")
-st.markdown("<p style='color: #94a3b8;'>Las zonas marcadas en rojo oscuro con guiones (<span style='color:#ef4444;'>- - -</span>) representan los vacíos reales del ábaco donde no existen curvas de nivel debido a restricciones físicas del macizo rocoso.</p>", unsafe_allow_html=True)
 
 filas_tabla = [
     "<b>LEVEMENTE FRACTURADA (LF)</b><br><small style='color:#94a3b8;'>RQD 75 - 90%</small>",
@@ -222,11 +254,7 @@ filas_tabla = [
     "<b>TRITURADA O BRECHADA (T)</b><br><small style='color:#94a3b8;'>Sin RQD</small>"
 ]
 headers = [
-    "<th>MUY BUENA (MB)<br><small style='color:#94a3b8;'>Rc > 250 MPa</small></th>", 
-    "<th>BUENA (B)<br><small style='color:#94a3b8;'>Rc 100-250 MPa</small></th>", 
-    "<th>REGULAR (R)<br><small style='color:#94a3b8;'>Rc 50-100 MPa</small></th>", 
-    "<th>POBRE (P)<br><small style='color:#94a3b8;'>Rc 25-50 MPa</small></th>", 
-    "<th>MUY POBRE (MP)<br><small style='color:#94a3b8;'>Rc < 25 MPa</small></th>"
+    "<th>MUY BUENA (MB)</th>", "<th>BUENA (B)</th>", "<th>REGULAR (R)</th>", "<th>POBRE (P)</th>", "<th>MUY POBRE (MP)</th>"
 ]
 
 html = f"<table class='tabla-gsi-oscura'><thead><tr><th>ESTRUCTURA DEL MACIZO ROCOSO</th>{"".join(headers)}</tr></thead><tbody>"
@@ -237,20 +265,17 @@ for i, fila in enumerate(filas_tabla):
         val_gsi = matriz_valores_gsi[i][j]
         cod_gsi = matriz_letras[i][j]
         
-        # Tratamiento visual diferenciado para celdas N/A
         if val_gsi == "N/A":
             if i == fila_activa and j == col_activa:
                 bg = "#7f1d1d"
                 color = "#f87171"
                 border = "border: 3.5px solid #ef4444; font-weight: bold;"
-                contenido = f"<b>{cod_gsi}</b><br><span style='font-size:11px; color:#f87171;'>Fuera de Rango</span>"
+                contenido = f"<b>{cod_gsi}</b><br><span style='font-size:11px;'>N/A</span>"
             else:
                 bg = "#1f1616"
-                color = "#5c4444"
                 border = "border: 1px dashed #453131;"
                 contenido = f"<span style='color:#453131;'>{cod_gsi}</span><br><span style='font-size:12px; color:#453131;'>- - -</span>"
         else:
-            # Resaltado verde esmeralda brillante si la combinación seleccionada es válida
             if i == fila_activa and j == col_activa:
                 bg = "#064e3b"
                 color = "#4ade80"
@@ -261,7 +286,7 @@ for i, fila in enumerate(filas_tabla):
                 border = "border: 1px solid #334155;"
             contenido = f"<b>{cod_gsi}</b><br><span style='font-size:12px; color:#ffffff;'>GSI: <b>{val_gsi}</b></span>"
             
-        html += f"<td style='background-color: {bg}; color: {color}; {border}'>{contenido}</td>"
+        html += f"<td style='background-color: {bg}; {border}'>{contenido}</td>"
     html += "</tr>"
     
 html += "</tbody></table>"
