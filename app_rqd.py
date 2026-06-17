@@ -136,7 +136,7 @@ st.markdown("<hr>", unsafe_allow_html=True)
 # ==============================================================================
 # BARRA LATERAL: ENTRADA DINÁMICA DE DATOS
 # ==============================================================================
-st.sidebar.header("1. Datos del Testigo (Core Run)")
+st.sidebar.header("1. Datos del Testigo")
 longitud_total = st.sidebar.number_input("Longitud Total del Tramo (cm):", min_value=10, max_value=1000, value=200, step=10)
 
 # El usuario puede modificar libremente la cantidad de fragmentos
@@ -187,7 +187,7 @@ datos_condicion = {
 info_activa = datos_condicion[condicion_seleccionada]
 st.sidebar.markdown(f"""
     <div class="panel-orientacion-oscuro" style="border-left-color: {info_activa['color']};">
-        <b style="color: {info_activa['color']}; font-size: 13px;">🔬 Ensayo de Campo (Picota):</b><br>
+        <b style="color: {info_activa['color']}; font-size: 13px;">Ensayo de Campo :</b><br>
         <b>Estado:</b> {info_activa['desc']}<br>
         <b>Comportamiento:</b> <code style='color: #000000; background-color:#ffffff; padding:2px 4px; font-weight:bold; border-radius:3px;'>{info_activa['picota']}</code>
     </div>
@@ -290,7 +290,7 @@ with col_izq:
         # COMPONENTE DE LA TABLA DE COMPORTAMIENTO
         st.markdown(f"""
             <div class="panel-comportamiento" style="background-color: #111827; border-left: 5px solid {color_comportamiento};">
-                <span style='color: {color_comportamiento}; font-weight: bold; font-size: 14px;'>📋 CALIDAD DE LA MASA ROCOSA: {calidad_roca.upper()}</span><br>
+                <span style='color: {color_comportamiento}; font-weight: bold; font-size: 14px;'>CALIDAD DE LA MASA ROCOSA: {calidad_roca.upper()}</span><br>
                 <p style='margin: 4px 0px 0px 0px; font-size: 12px; color: #e2e8f0;'><b>Comportamiento Típico en Ingeniería:</b> {comportamiento_texto}</p>
             </div>
         """, unsafe_allow_html=True)
