@@ -115,7 +115,7 @@ st.markdown("<hr style='border-color: #334155;'>", unsafe_allow_html=True)
 st.sidebar.header("🛠️ 1. Datos del Testigo (Core Run)")
 
 longitud_total = st.sidebar.number_input("Longitud Total del Tramo (cm):", min_value=10, max_value=1000, value=200, step=10)
-num_fragmentos = st.sidebar.number_input("N° de Fragmentos Registrados:", min_value=1, max_value=20, value=5, step=1)
+num_fragmentos = st.sidebar.number_input("N° de Fragmentos Registrados:", min_value=1, max_value=20, value=4meto, step=1)
 
 st.sidebar.subheader("📐 Registro de Longitudes (cm):")
 fragmentos = []
