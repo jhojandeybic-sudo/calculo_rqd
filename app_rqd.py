@@ -296,216 +296,24 @@ with col_izq:
         """, unsafe_allow_html=True)
 
 with col_der:
-
-    st.markdown(
-        "<b>📐 Reconstrucción Lineal Correlativa del Testigo (Sin Desfase)</b>",
-        unsafe_allow_html=True
-    )
-
-    html_sondaje = """
-    <div style='width:100%;'>
-    """
-
-    # =====================================================
-    # BLOQUES DEL TESTIGO
-    # =====================================================
-
-    html_sondaje += """
-    <div style='
-        width:100%;
-        height:60px;
-        display:flex;
-        border:2px solid #334155;
-        overflow:hidden;
-        border-radius:4px;
-    '>
-    """
-
-    posiciones = []
-    acumulado = 0
-
+    st.markdown("<b>📐 Reconstrucción Lineal Correlativa del Testigo (Sin Desfase)</b>", unsafe_allow_html=True)
+    
+    html_sondaje = "<div style='border: 2px solid #334155; background-color: #111827; width: 100%; height: 50px; display: table; border-collapse: collapse; border-radius: 6px; overflow: hidden;'>"
     for idx, frag in enumerate(fragmentos):
-
-        if frag <= 0:
-            continue
-
-        pct = (frag / longitud_total) * 100
-
-        posiciones.append((acumulado, acumulado + pct, frag))
-        acumulado += pct
-
-        color = "#0284c7" if frag >= 10 else "#dc2626"
-
-        html_sondaje += f"""
-        <div style='
-            width:{pct}%;
-            background:{color};
-            border-right:1px solid #0f172a;
-            color:white;
-            text-align:center;
-            font-size:10px;
-            font-weight:bold;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-        '>
-            L{idx+1}<br>
-            {frag}cm
-        </div>
-        """
-
-    perdida_total = longitud_total - sum(fragmentos)
-
+        if frag > 0:
+            pct = (frag / longitud_total) * 100
+            color = "#0284c7" if frag >= 10 else "#dc2626"
+            html_sondaje += f"<div style='display: table-cell; width: {pct}%; background-color: {color}; border-right: 1px solid #0f172a; color: #ffffff; text-align: center; vertical-align: middle; font-weight: bold; font-size: 10px;'>L{idx+1}<br>{frag}cm</div>"
+            
+    suma_piezas = sum(fragmentos)
+    perdida_total = longitud_total - suma_piezas
     if perdida_total > 0:
-
-        pct_perdida = (perdida_total / longitud_total) * 100
-
-        posiciones.append(
-            (acumulado, acumulado + pct_perdida, perdida_total)
-        )
-
-        html_sondaje += f"""
-        <div style='
-            width:{pct_perdida}%;
-            background:#334155;
-            color:white;
-            text-align:center;
-            font-size:10px;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-        '>
-            Pérdida<br>
-            {perdida_total}cm
-        </div>
-        """
-
+        pct_p = (perdida_total / longitud_total) * 100
+        html_sondaje += f"<div style='display: table-cell; width: {pct_p}%; background-color: #334155; color: #94a3b8; text-align: center; vertical-align: middle; font-size: 10px; font-style: italic;'>Pérdida<br>{perdida_total}cm</div>"
     html_sondaje += "</div>"
-
-    # =====================================================
-    # ESCALA TIPO CORE LOG
-    # =====================================================
-
-    html_sondaje += """
-    <div style='
-        position:relative;
-        width:100%;
-        height:50px;
-        margin-top:5px;
-    '>
-    """
-
-    html_sondaje += """
-    <div style='
-        position:absolute;
-        top:18px;
-        left:0;
-        width:100%;
-        height:1px;
-        background:white;
-    '></div>
-    """
-
-    acumulado = 0
-
-    for inicio, fin, medida in posiciones:
-
-        html_sondaje += f"""
-        <div style='
-            position:absolute;
-            left:{inicio}%;
-            top:13px;
-            width:1px;
-            height:10px;
-            background:white;
-        '></div>
-        """
-
-        centro = (inicio + fin) / 2
-
-        html_sondaje += f"""
-        <div style='
-            position:absolute;
-            left:{centro}%;
-            transform:translateX(-50%);
-            top:22px;
-            color:white;
-            font-size:12px;
-            font-weight:bold;
-            white-space:nowrap;
-        '>
-            {medida}cm
-        </div>
-        """
-
-    html_sondaje += """
-    <div style='
-        position:absolute;
-        right:0;
-        top:13px;
-        width:1px;
-        height:10px;
-        background:white;
-    '></div>
-    """
-
-    html_sondaje += "</div></div>"
-
     st.markdown(html_sondaje, unsafe_allow_html=True)
 
-    # =====================================================
-    # FORMULA DEL RQD
-    # =====================================================
-
-    st.markdown("### 📐 Cálculo del RQD")
-
-    fragmentos_rqd = [f for f in fragmentos if f >= 10]
-
-    if fragmentos_rqd:
-
-        formula = " + ".join(str(f) for f in fragmentos_rqd)
-
-        st.latex(
-            rf"RQD = \frac{{{formula}}}{{{longitud_total}}}\times100"
-        )
-
-        st.latex(
-            rf"RQD = \frac{{{sum(fragmentos_rqd)}}}{{{longitud_total}}}\times100"
-        )
-
-        st.latex(
-            rf"RQD = {rqd:.2f}\%"
-        )
-
-    # ==========================================================
-    # FORMULA DEL RQD
-    # ==========================================================
-
-    st.markdown("### 📐 Desarrollo del Cálculo del RQD")
-
-    fragmentos_rqd = [f for f in fragmentos if f >= 10]
-
-    if fragmentos_rqd:
-
-        formula = " + ".join(str(f) for f in fragmentos_rqd)
-
-        st.latex(
-            rf"RQD = \frac{{{formula}}}{{{longitud_total}}}\times100"
-        )
-
-        st.latex(
-            rf"RQD = \frac{{{sum(fragmentos_rqd)}}}{{{longitud_total}}}\times100"
-        )
-
-        st.latex(
-            rf"RQD = {rqd:.2f}\%"
-        )
-
-    else:
-
-        st.latex(
-            rf"RQD = \frac{{0}}{{{longitud_total}}}\times100 = 0\%"
-        )
+st.markdown("<hr>", unsafe_allow_html=True)
 
 # ==============================================================================
 # AUDITORÍA DE MATRIZ COMPLETA
