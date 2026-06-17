@@ -14,37 +14,36 @@ if __name__ == "__main__":
 # ==============================================================================
 
 st.set_page_config(
-    page_title="GSI Modificado - Ultra Compacto", 
+    page_title="GSI Modificado - Versión Profesional Integra", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ==============================================================================
-# ARQUITECTURA CSS: Compresión Extrema de Espacios y Contraste de Inputs en Negro
+# ARQUITECTURA CSS: Optimización de Espacios Muertos sin Recortar Textos
 # ==============================================================================
 st.markdown("""
     <style>
-    /* Eliminar márgenes globales redundantes de Streamlit */
+    /* Fondo general */
     .stApp { background-color: #090d16 !important; }
     
-    /* Contenedor principal derecho con padding mínimo */
+    /* Panel principal derecho: Aprovechamiento máximo del espacio vertical */
     .block-container {
         background-color: #0f172a;
-        padding: 1rem 1.5rem !important;
+        padding: 1.2rem 2rem !important;
         border-radius: 12px;
         box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
-        margin-top: 0.2rem !important;
+        margin-top: 0.3rem !important;
     }
 
-    /* BARRA LATERAL: Ajuste hipercompacto */
+    /* BARRA LATERAL: Compactación de márgenes entre inputs */
     [data-testid="stSidebar"] {
         background-color: #0f172a !important;
         border-right: 1px solid #1e293b;
     }
     
-    /* Reducir espacio vertical muerto entre elementos de la barra lateral */
     [data-testid="stSidebar"] .stElementContainer {
-        margin-bottom: 0.15rem !important;
+        margin-bottom: 0.3rem !important; /* Espaciado corto entre cajas */
         padding: 0 !important;
     }
     
@@ -54,47 +53,47 @@ st.markdown("""
         color: #f8fafc !important;
     }
 
-    /* CONTROL DE INPUTS: Cajas claras con texto/números en NEGRO INTENSO */
+    /* CONTROL DE INPUTS: Fondo blanco e inputs en NEGRO PREDETERMINADO nítido */
     [data-testid="stSidebar"] div[data-baseweb="input"] {
         background-color: #ffffff !important; 
         border: 2px solid #38bdf8 !important;  
-        border-radius: 5px !important;
-        height: 36px !important; /* Más compacto */
+        border-radius: 6px !important;
+        height: 38px !important;
     }
     [data-testid="stSidebar"] input {
         color: #000000 !important; 
         font-weight: bold !important;
     }
     
-    /* Selector de Condición Superficial compacto en negro */
+    /* Selector de Condición Superficial claro con texto interno negro */
     [data-testid="stSidebar"] div[data-baseweb="select"] {
         background-color: #ffffff !important;
         border: 2px solid #38bdf8 !important;
-        border-radius: 5px !important;
+        border-radius: 6px !important;
     }
     [data-testid="stSidebar"] div[data-baseweb="select"] span {
         color: #000000 !important; 
         font-weight: bold !important;
     }
     
-    /* Elementos del panel de resultados */
+    /* Estilos de fuentes en el panel derecho */
     h1, h2, h3, p, span, label { color: #f8fafc !important; }
-    div[data-testid="stMetricValue"] { color: #38bdf8 !important; font-weight: bold; font-size: 1.8rem !important; }
-    div[data-testid="stMetricLabel"] { color: #94a3b8 !important; margin-bottom: 0px !important; }
-    .stMetric { background-color: #1e293b; padding: 8px 12px; border-radius: 6px; border: 1px solid #334155; }
+    div[data-testid="stMetricValue"] { color: #38bdf8 !important; font-weight: bold; font-size: 2rem !important; }
+    div[data-testid="stMetricLabel"] { color: #94a3b8 !important; }
+    .stMetric { background-color: #1e293b; padding: 10px 14px; border-radius: 8px; border: 1px solid #334155; }
     
-    /* Cuadro de la picota comprimido */
+    /* Cuadro de la picota profesional */
     .panel-orientacion-oscuro {
         background-color: #1e293b;
-        padding: 8px 10px;
+        padding: 10px 14px;
         border-radius: 6px;
         border-left: 4px solid #38bdf8;
-        margin-top: 3px;
-        font-size: 11px;
+        margin-top: 5px;
+        font-size: 12px;
         color: #cbd5e1;
     }
     
-    /* TABLA GSI HIPERCOMPACTA */
+    /* TABLA DE DOBLE ENTRADA PROFESIONAL INTEGRA */
     .tabla-gsi-oscura { 
         width: 100%; 
         border-collapse: collapse; 
@@ -103,48 +102,48 @@ st.markdown("""
         font-size: 11px; 
         border: 1px solid #334155;
         background-color: #111827;
-        margin-top: 4px;
+        margin-top: 6px;
     }
     .tabla-gsi-oscura th { 
         background-color: #1e293b; 
         color: #38bdf8; 
-        padding: 5px; 
+        padding: 10px 6px; 
         border: 1px solid #334155; 
+        vertical-align: top;
     }
-    .tabla-gsi-oscura td { padding: 5px; border: 1px solid #334155; color: #e2e8f0; }
+    .tabla-gsi-oscura td { padding: 10px 6px; border: 1px solid #334155; color: #e2e8f0; }
     
-    hr { margin: 0.6rem 0 !important; border-color: #334155 !important; }
+    hr { margin: 0.8rem 0 !important; border-color: #334155 !important; }
     </style>
 """, unsafe_allow_html=True)
 
-# Títulos compactos
-st.markdown("<h2 style='margin:0px; padding:0px;'>💎 Analizador Geotécnico GSI Modificado Real</h2>", unsafe_allow_html=True)
-st.markdown("<p style='color: #94a3b8; margin:0px;'>Mapeo exacto de isolíneas y consistencia litológica de campo.</p>", unsafe_allow_html=True)
+# Encabezados de la Aplicación
+st.title("💎 Analizador Geotécnico GSI Modificado Real")
+st.markdown("<p style='color: #94a3b8; margin-top:-10px;'>Se basa en la cantidad de fracturas por metro lineal, medidas insitu con una wincha. La resistencia se determina golpeando o indentando la roca con una picota.</p>", unsafe_allow_html=True)
 st.markdown("<hr>", unsafe_allow_html=True)
 
 # ==============================================================================
-# BARRA LATERAL: ENTRADA DE DATOS DINÁMICA Y EDITABLE
+# BARRA LATERAL: ENTRADA DE DATOS DINÁMICA CON DATOS NEGROS
 # ==============================================================================
-st.sidebar.markdown("<h3 style='margin:0px;'>🛠️ 1. Datos del Testigo</h3>", unsafe_allow_html=True)
+st.sidebar.header("🛠️ 1. Datos del Testigo (Core Run)")
+
 longitud_total = st.sidebar.number_input("Longitud Total del Tramo (cm):", min_value=10, max_value=1000, value=200, step=10)
 
-# ¡REPARADO! El usuario puede cambiar libremente el número de fragmentos
+# Recuperada la opción de alterar libremente la cantidad de fragmentos
 num_fragmentos = st.sidebar.number_input("N° de Fragmentos Registrados:", min_value=1, max_value=30, value=4, step=1)
 
-st.sidebar.markdown("<p style='margin:2px 0px 0px 0px; font-weight:bold; font-size:13px;'>📐 Registro de Longitudes (cm):</p>", unsafe_allow_html=True)
-
-# Valores por defecto para mantener tus datos iniciales de 4 fragmentos
+st.sidebar.subheader("📐 Registro de Longitudes (cm):")
 valores_predeterminados = [25, 15, 18, 32]
 fragmentos = []
 
+# Mapeo dinámico respetando los 4 iniciales obligatorios
 for i in range(int(num_fragmentos)):
-    # Si el índice está dentro de los 4 iniciales, se usa; si no, se inicializa en 10
     val_def = valores_predeterminados[i] if i < len(valores_predeterminados) else 10
     val = st.sidebar.number_input(f"Fragmento L{i+1}:", min_value=0, max_value=200, value=val_def, step=1, key=f"l_{i}")
     fragmentos.append(val)
 
 st.sidebar.markdown("<hr>", unsafe_allow_html=True)
-st.sidebar.markdown("<h3 style='margin:0px;'>⛏️ 2. Clasificación Superficial</h3>", unsafe_allow_html=True)
+st.sidebar.header("⛏️ 2. Clasificación Superficial")
 
 condicion_seleccionada = st.sidebar.selectbox(
     "Condición Superficial:",
@@ -152,43 +151,63 @@ condicion_seleccionada = st.sidebar.selectbox(
     index=2
 )
 
-# Descripciones y comportamiento con picota
+# Textos completos recuperados íntegramente del ábaco oficial
 datos_condicion = {
-    "MUY BUENA (MB)": {"desc": "Fresca. Discontinuidades muy rugosas, cerradas. (Rc > 250 MPa).", "picota": "Se astilla con golpes de picota.", "color": "#38bdf8"},
-    "BUENA (B)": {"desc": "Leve. alterada. Rugosas, oxidación, lig. abierta. (Rc 100 a 250 MPa).", "picota": "Se rompe con varios golpes de picota.", "color": "#4ade80"},
-    "REGULAR (R)": {"desc": "Leve. alterada. Lisas, ligeramente abierta. (Rc 50 a 100 MPa).", "picota": "Se rompe con uno o dos golpes de picota.", "color": "#f59e0b"},
-    "POBRE (P)": {"desc": "Mod. resistente/alterada. Pulida, relleno compacto. (Rc 25 a 50 MPa).", "picota": "Se indenta superficialmente con la picota.", "color": "#f87171"},
-    "MUY POBRE (MP)": {"desc": "Blanda. Pulida y estriada, relleno de arcillas. (Rc < 25 MPa).", "picota": "Se disgrega o indenta con la picota.", "color": "#ef4444"}
+    "MUY BUENA (MB)": {
+        "desc": "Extremadamente resistente, fresca. Superficie de las discontinuidades muy rugosas e inalteradas, cerradas. (Rc > 250 MPa).", 
+        "picota": "Se astilla con golpes de picota.", 
+        "color": "#38bdf8"
+    },
+    "BUENA (B)": {
+        "desc": "Muy resistente, levemente alterada. Discontinuidades rugosas, levemente alteradas, manchas de oxidación, lig. abierta. (Rc 100 a 250 MPa).", 
+        "picota": "Se rompe con varios golpes de picota.", 
+        "color": "#4ade80"
+    },
+    "REGULAR (R)": {
+        "desc": "Resistente, levemente alterada. Discontinuidades lisas, moderadamente alteradas, ligeramente abierta. (Rc 50 a 100 MPa).", 
+        "picota": "Se rompe con uno o dos golpes de picota.", 
+        "color": "#f59e0b"
+    },
+    "POBRE (P)": {
+        "desc": "Moderadamente resistente, moderadamente alterada. Superficie pulida o con estriaciones, muy alterada, relleno compacto o con fragmentos de roca. (Rc 25 a 50 MPa).", 
+        "picota": "Se indenta superficialmente con la picota.", 
+        "color": "#f87171"
+    },
+    "MUY POBRE (MP)": {
+        "desc": "Blanda, muy alterada. Superficie pulida y estriada, muy abierta, con relleno de arcillas blandas. (Rc < 25 MPa).", 
+        "picota": "Se disgrega o indenta superficialmente con la picota.", 
+        "color": "#ef4444"
+    }
 }
 
 info_activa = datos_condicion[condicion_seleccionada]
 st.sidebar.markdown(f"""
     <div class="panel-orientacion-oscuro" style="border-left-color: {info_activa['color']};">
-        <b style="color: {info_activa['color']};">🔬 Ensayo (Picota):</b> {info_activa['desc']}<br>
-        <b>Reacción:</b> <span style='color: #000000; background-color:#ffffff; padding:0px 3px; border-radius:2px; font-weight:bold;'>{info_activa['picota']}</span>
+        <b style="color: {info_activa['color']}; font-size: 13px;">🔬 Ensayo de Campo (Picota):</b><br>
+        <b>Estado:</b> {info_activa['desc']}<br>
+        <b>Comportamiento:</b> <code style='color: #000000; background-color:#ffffff; padding:2px 4px; font-weight:bold; border-radius:3px;'>{info_activa['picota']}</code>
     </div>
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# ALGORITMO GEOMECÁNICO (CÁLCULO RQD Y MATRIZ GSI)
+# ALGORITMO GEOMECÁNICO COMPLETO (MALLA DE HOEK)
 # ==============================================================================
 fragmentos_validos = [f for f in fragmentos if f >= 10]
 suma_validos = sum(fragmentos_validos)
 rqd = (suma_validos / longitud_total) * 100 if longitud_total > 0 else 0.0
 
-# Clasificación por filas según rangos oficiales de RQD
+# Estructura del macizo basada en los rangos oficiales del ábaco
 if rqd > 75 and rqd <= 90:
-    fila_activa, estructura_label = 0, "LEVEMENTE FRACTURADA (LF)"
+    fila_activa, estructura_label = 0, "LEVEMENTE FRACTURADA"
 elif rqd > 50 and rqd <= 75:
-    fila_activa, estructura_label = 1, "MODERADAMENTE FRACTURADA (F)"
+    fila_activa, estructura_label = 1, "MODERADAMENTE FRACTURADA"
 elif rqd > 25 and rqd <= 50:
-    fila_activa, estructura_label = 2, "MUY FRACTURADA (MF)"
+    fila_activa, estructura_label = 2, "MUY FRACTURADA"
 else:
-    # Si hay fragmentación intensa y el tamaño máximo es bajo, entra a Triturada
     if num_fragmentos >= 4 and (len(fragmentos) == 0 or max(fragmentos) <= 35) and rqd < 25:
-        fila_activa, estructura_label = 4, "TRITURADA O BRECHADA (T)"
+        fila_activa, estructura_label = 4, "TRITURADA O BRECHADA"
     else:
-        fila_activa, estructura_label = 3, "INTENSAMENTE FRACTURADA (IF)"
+        fila_activa, estructura_label = 3, "INTENSAMENTE FRACTURADA"
 
 col_activa = ["MUY BUENA (MB)", "BUENA (B)", "REGULAR (R)", "POBRE (P)", "MUY POBRE (MP)"].index(condicion_seleccionada)
 
@@ -200,7 +219,7 @@ matriz_letras = [
     ["T/MB",  "T/B",  "T/R",  "T/P",  "T/MP"]
 ]
 
-# Valores mapeados estrictamente de las curvas del ábaco real
+# Rangos exactos extraídos de las isolíneas continuas
 matriz_valores_gsi = [
     ["95-90", "85-80", "75-70", "60-55", "N/A"],
     ["90-80", "75-70", "65-60", "55-50", "40-35"],
@@ -213,81 +232,100 @@ codigo_final = matriz_letras[fila_activa][col_activa]
 valor_gsi_final = matriz_valores_gsi[fila_activa][col_activa]
 
 # ==============================================================================
-# DESPLIEGUE DEL PANEL DE CONTROL (DISPOSICIÓN COMPACTADA)
+# INTERFAZ GRÁFICA DEL PANEL DE CONTROL (DISPOSICIÓN SIN ESPACIOS MUERTOS)
 # ==============================================================================
+st.subheader("📊 Panel de Control y Análisis Operativo")
 col_izq, col_der = st.columns([1, 1.2])
 
 with col_izq:
-    st.metric(label="RQD Resultante", value=f"{rqd:.1f} %")
-    st.markdown(f"<p style='margin:2px 0px;'><b>Estructura:</b> <span style='color:#38bdf8;'>{estructura_label}</span><br><b>Condición:</b> <span style='color:{info_activa['color']};'>{condicion_seleccionada}</span></p>", unsafe_allow_html=True)
+    st.metric(label="RQD Resultante (Muestra)", value=f"{rqd:.1f} %")
+    st.markdown(f"**Estructura Clasificada:** <span style='color:#38bdf8;'>{estructura_label}</span>", unsafe_allow_html=True)
+    st.markdown(f"**Condición de Discontinuidades:** <span style='color:{info_activa['color']};'>{condicion_seleccionada}</span>", unsafe_allow_html=True)
     
     if valor_gsi_final == "N/A":
-        st.markdown(f"<div style='background-color: #7f1d1d; padding: 6px 10px; border-radius: 6px; border: 1px solid #f87171; margin-top: 4px; color:#ffffff;'><b>Valor GSI: No Existe (N/A)</b><br><small style='color:#fca5a5;'>Combinación {codigo_final} vacía en el ábaco.</small></div>", unsafe_allow_html=True)
+        st.markdown(f"""
+            <div style='background-color: #7f1d1d; padding: 12px; border-radius: 8px; border: 1px solid #f87171; margin-top: 8px;'>
+                <span style='font-size: 20px; color: #ffffff; font-weight: bold;'>Valor GSI: No Existe (N/A)</span><br>
+                <span style='color: #fca5a5; font-size: 12px;'>La combinación de bloques <b>{codigo_final}</b> representa una condición estructural vacía en el ábaco.</span>
+            </div>
+        """, unsafe_allow_html=True)
     else:
-        st.markdown(f"<div style='background-color: #1e293b; padding: 6px 10px; border-radius: 6px; border: 1px solid #334155; margin-top: 4px; color:#4ade80; font-size:18px;'><b>Rango GSI: {valor_gsi_final}</b> <span style='color:#cbd5e1; font-size:12px;'>({codigo_final})</span></div>", unsafe_allow_html=True)
+        st.markdown(f"""
+            <div style='background-color: #1e293b; padding: 12px; border-radius: 8px; border: 1px solid #334155; margin-top: 8px;'>
+                <span style='font-size: 24px; color: #4ade80; font-weight: bold;'>Rango GSI Calculado: {valor_gsi_final}</span><br>
+                <span style='color: #cbd5e1; font-size: 12px;'>Bloque de Intersección Matricial: <b>{codigo_final}</b></span>
+            </div>
+        """, unsafe_allow_html=True)
 
 with col_der:
-    st.markdown("<p style='margin:0px 0px 2px 0px; font-weight:bold; font-size:13px;'>📐 Reconstrucción del Testigo:</p>", unsafe_allow_html=True)
+    st.markdown("<b>📐 Reconstrucción Lineal Correlativa del Testigo (Sin Desfase)</b>", unsafe_allow_html=True)
     
-    html_sondaje = "<div style='border: 1px solid #334155; background-color: #111827; width: 100%; height: 38px; display: table; border-collapse: collapse; border-radius: 4px; overflow: hidden;'>"
+    html_sondaje = "<div style='border: 2px solid #334155; background-color: #111827; width: 100%; height: 50px; display: table; border-collapse: collapse; border-radius: 6px; overflow: hidden;'>"
+    
     for idx, frag in enumerate(fragmentos):
         if frag > 0:
             pct = (frag / longitud_total) * 100
             color = "#0284c7" if frag >= 10 else "#dc2626"
-            html_sondaje += f"<div style='display: table-cell; width: {pct}%; background-color: {color}; border-right: 1px solid #0f172a; color: #ffffff; text-align: center; vertical-align: middle; font-weight: bold; font-size: 9px;'>L{idx+1}<br>{frag}cm</div>"
+            html_sondaje += f"<div style='display: table-cell; width: {pct}%; background-color: {color}; border-right: 1px solid #0f172a; color: #ffffff; text-align: center; vertical-align: middle; font-weight: bold; font-size: 10px;'>L{idx+1}<br>{frag}cm</div>"
             
     suma_piezas = sum(fragmentos)
     perdida_total = longitud_total - suma_piezas
     if perdida_total > 0:
         pct_p = (perdida_total / longitud_total) * 100
-        html_sondaje += f"<div style='display: table-cell; width: {pct_p}%; background-color: #334155; color: #94a3b8; text-align: center; vertical-align: middle; font-size: 9px; font-style: italic;'>Pérdida<br>{perdida_total}cm</div>"
+        html_sondaje += f"<div style='display: table-cell; width: {pct_p}%; background-color: #334155; color: #94a3b8; text-align: center; vertical-align: middle; font-size: 10px; font-style: italic;'>Pérdida<br>{perdida_total}cm</div>"
+        
     html_sondaje += "</div>"
     st.markdown(html_sondaje, unsafe_allow_html=True)
 
 st.markdown("<hr>", unsafe_allow_html=True)
 
 # ==============================================================================
-# AUDITORÍA DE MATRIZ DE DOBLE ENTRADA HOMOLOGADA (SIN ESPACIOS VACÍOS)
+# AUDITORÍA DE MATRIZ COMPLETA (TEXTOS COMPLETOS RESTAURADOS)
 # ==============================================================================
-st.markdown("<b style='font-size:14px;'>🗺️ Matriz GSI de Doble Entrada Real</b>", unsafe_allow_html=True)
+st.subheader("🗺️ Matriz de Doble Entrada Completa: GSI Modificado")
 
+# Textos e información técnica completa del ábaco restaurados al 100%
 filas_tabla = [
-    "<b>LF</b> <small style='color:#94a3b8;'>(75-90%)</small>",
-    "<b>F</b> <small style='color:#94a3b8;'>(50-75%)</small>",
-    "<b>MF</b> <small style='color:#94a3b8;'>(25-50%)</small>",
-    "<b>IF</b> <small style='color:#94a3b8;'>(0-25%)</small>",
-    "<b>T</b> <small style='color:#94a3b8;'>(Sin RQD)</small>"
+    "<b>LEVEMENTE FRACTURADA (LF)</b><br><small style='color:#94a3b8;'>Tres a menos sistemas muy espaciados<br><b>RQD 75 - 90%</b> (2 a 6 frac/m)</small>",
+    "<b>MODERADAMENTE FRACTURADA (F)</b><br><small style='color:#94a3b8;'>Muy bien trabada, bloques cúbicos<br><b>RQD 50 - 75%</b> (6 a 12 frac/m)</small>",
+    "<b>MUY FRACTURADA (MF)</b><br><small style='color:#94a3b8;'>Parcialmente disturbada, bloques angulosos<br><b>RQD 25 - 50%</b> (12 a 20 frac/m)</small>",
+    "<b>INTENSAMENTE FRACTURADA (IF)</b><br><small style='color:#94a3b8;'>Plegamiento y fallamiento, bloques irregulares<br><b>RQD 0 - 25%</b> (Más de 20 frac/m)</small>",
+    "<b>TRITURADA O BRECHADA (T)</b><br><small style='color:#94a3b8;'>Masa rocosa extremadamente rota<br><b>Sin RQD</b> (Fácilmente disgregable)</small>"
 ]
 
 headers = [
-    "<th>MB<br><small style='color:#94a3b8;'>Astilla</small></th>", 
-    "<th>B<br><small style='color:#94a3b8;'>Varios g.</small></th>", 
-    "<th>R<br><small style='color:#94a3b8;'>1-2 g.</small></th>", 
-    "<th>P<br><small style='color:#94a3b8;'>Indenta</small></th>", 
-    "<th>MP<br><small style='color:#94a3b8;'>Disgrega</small></th>"
+    "<th>MUY BUENA (MB)<br><small style='color:#ec4899;'>Astilla c/ picota</small><br><small style='color:#94a3b8;'>Rc > 250 MPa</small></th>", 
+    "<th>BUENA (B)<br><small style='color:#ec4899;'>Varios golpes</small><br><small style='color:#94a3b8;'>Rc 100-250 MPa</small></th>", 
+    "<th>REGULAR (R)<br><small style='color:#ec4899;'>1 o 2 golpes</small><br><small style='color:#94a3b8;'>Rc 50-100 MPa</small></th>", 
+    "<th>POBRE (P)<br><small style='color:#ec4899;'>Indenta sup.</small><br><small style='color:#94a3b8;'>Rc 25-50 MPa</small></th>", 
+    "<th>MUY POBRE (MP)<br><small style='color:#ec4899;'>Se disgrega</small><br><small style='color:#94a3b8;'>Rc < 25 MPa</small></th>"
 ]
 
-html = f"<table class='tabla-gsi-oscura'><thead><tr><th>Estructura ↓ / Condición →</th>{"".join(headers)}</tr></thead><tbody>"
+html = f"<table class='tabla-gsi-oscura'><thead><tr><th>ESTRUCTURA DEL MACIZO ↓ / CONDICIÓN SUPERFICIAL →</th>{"".join(headers)}</tr></thead><tbody>"
 
 for i, fila in enumerate(filas_tabla):
-    html += f"<tr><td style='background-color: #1e293b; text-align: left; font-weight: bold; color: #ffffff;'>{fila}</td>"
+    html += f"<tr><td style='background-color: #1e293b; text-align: left; font-weight: bold; color: #ffffff; padding: 10px; font-size:11px;'>{fila}</td>"
     for j in range(5):
         val_gsi = matriz_valores_gsi[i][j]
         cod_gsi = matriz_letras[i][j]
         
         if val_gsi == "N/A":
             if i == fila_activa and j == col_activa:
-                bg = "#7f1d1d"; border = "border: 2px solid #ef4444; font-weight: bold;"
-                contenido = f"<b>{cod_gsi}</b><br><span style='color:#f87171; font-size:10px;'>Vacío</span>"
+                bg = "#7f1d1d"
+                border = "border: 3px solid #ef4444; font-weight: bold;"
+                contenido = f"<b>{cod_gsi}</b><br><span style='font-size:11px; color:#f87171;'>Vacío</span>"
             else:
-                bg = "#1f1616"; border = "border: 1px dashed #453131;"
-                contenido = f"<span style='color:#453131;'>- - -</span>"
+                bg = "#1f1616"
+                border = "border: 1px dashed #453131;"
+                contenido = f"<span style='color:#453131;'>{cod_gsi}</span><br><span style='font-size:11px; color:#453131;'>- - -</span>"
         else:
             if i == fila_activa and j == col_activa:
-                bg = "#064e3b"; border = "border: 2.5px solid #4ade80; font-weight: bold;"
+                bg = "#064e3b"
+                border = "border: 3px solid #4ade80; font-weight: bold; box-shadow: inset 0 0 8px #4ade80;"
             else:
-                bg = "#111827"; border = "border: 1px solid #334155;"
-            contenido = f"<b>{cod_gsi}</b><br><span style='color:#ffffff; font-size:10px;'><b>{val_gsi}</b></span>"
+                bg = "#111827"
+                border = "border: 1px solid #334155;"
+            contenido = f"<b>{cod_gsi}</b><br><span style='font-size:12px; color:#ffffff;'>Línea: <b>{val_gsi}</b></span>"
             
         html += f"<td style='background-color: {bg}; {border}'>{contenido}</td>"
     html += "</tr>"
