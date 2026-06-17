@@ -51,7 +51,7 @@ st.markdown("""
     [data-testid="stSidebar"] p, 
     [data-testid="stSidebar"] label, 
     [data-testid="stSidebar"] span {
-        color: #f8fafc !important; /* Blanco nítido de alta visibilidad */
+        color: #38bdf8 !important; /* Blanco nítido de alta visibilidad */
     }
 
     /* SOLUCIÓN AL ERROR DE INPUTS: Forzar fondo oscuro y texto blanco dentro de las cajas de llenado */
