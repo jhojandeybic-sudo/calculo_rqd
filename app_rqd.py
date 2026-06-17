@@ -14,18 +14,20 @@ if __name__ == "__main__":
 # ==============================================================================
 
 st.set_page_config(
-    page_title="GSI Modificado - Versión Operativa Completa", 
+    page_title="GSI Modificado - Versión Operativa Oscura", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ==============================================================================
-# ARQUITECTURA CSS: Optimización de Espacios Muertos y Paneles de Ingeniería
+# ARQUITECTURA CSS: Corrección Completa de Componentes de Entrada a Modo Oscuro
 # ==============================================================================
 st.markdown("""
     <style>
+    /* Fondo general de la aplicación */
     .stApp { background-color: #090d16 !important; }
     
+    /* Panel principal derecho */
     .block-container {
         background-color: #0f172a;
         padding: 1.2rem 2rem !important;
@@ -34,6 +36,7 @@ st.markdown("""
         margin-top: 0.3rem !important;
     }
 
+    /* BARRA LATERAL: Ajuste de contenedores y espaciados cortos */
     [data-testid="stSidebar"] {
         background-color: #0f172a !important;
         border-right: 1px solid #1e293b;
@@ -50,28 +53,58 @@ st.markdown("""
         color: #f8fafc !important;
     }
 
-    /* CONTROL DE INPUTS: Cajas con texto numérico en NEGRO nítido */
+    /* ====== CORRECCIÓN MODO OSCURO PARA CAJAS NUMÉRICAS EN LA BARRA LATERAL ====== */
+    /* Contenedor principal del input numérico (Fondo Oscuro e Integrado) */
     [data-testid="stSidebar"] div[data-baseweb="input"] {
-        background-color: #ffffff !important; 
-        border: 2px solid #38bdf8 !important;  
+        background-color: #1e293b !important; 
+        border: 1px solid #334155 !important;  
         border-radius: 6px !important;
         height: 38px !important;
     }
+    
+    /* Input de texto/número activo */
     [data-testid="stSidebar"] input {
-        color: #000000 !important; 
+        color: #f8fafc !important; 
         font-weight: bold !important;
+        background-color: transparent !important;
     }
     
-    [data-testid="stSidebar"] div[data-baseweb="select"] {
-        background-color: #ffffff !important;
+    /* Botones de incremento (+) y decremento (-) de Streamlit */
+    [data-testid="stSidebar"] button[data-testid="stNumberInputStepUp"], 
+    [data-testid="stSidebar"] button[data-testid="stNumberInputStepDown"] {
+        background-color: #334155 !important;
+        color: #f8fafc !important;
+        border: none !important;
+    }
+    
+    /* Efecto Hover en los botones más/menos */
+    [data-testid="stSidebar"] button[data-testid="stNumberInputStepUp"]:hover, 
+    [data-testid="stSidebar"] button[data-testid="stNumberInputStepDown"]:hover {
+        background-color: #475569 !important;
+        color: #38bdf8 !important;
+    }
+
+    /* Enfoque o estado activo de la caja de entrada (Foco Geotécnico) */
+    [data-testid="stSidebar"] div[data-baseweb="input"]:focus-within {
         border: 2px solid #38bdf8 !important;
+        box-shadow: 0 0 0 1px #38bdf8 !important;
+    }
+    
+    /* Selector desplegable de Condición Superficial en modo oscuro coordinado */
+    [data-testid="stSidebar"] div[data-baseweb="select"] {
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
         border-radius: 6px !important;
     }
     [data-testid="stSidebar"] div[data-baseweb="select"] span {
-        color: #000000 !important; 
+        color: #f8fafc !important; 
         font-weight: bold !important;
     }
+    [data-testid="stSidebar"] div[data-baseweb="select"]:focus-within {
+        border: 2px solid #38bdf8 !important;
+    }
     
+    /* ====== ESTILOS DE FUENTES Y COMPONENTES DEL PANEL DERECHO ====== */
     h1, h2, h3, p, span, label { color: #f8fafc !important; }
     div[data-testid="stMetricValue"] { color: #38bdf8 !important; font-weight: bold; font-size: 2rem !important; }
     div[data-testid="stMetricLabel"] { color: #94a3b8 !important; }
@@ -87,7 +120,6 @@ st.markdown("""
         color: #cbd5e1;
     }
     
-    /* PANELES DE COMPORTAMIENTO GEOMECÁNICO ADICIONADOS */
     .panel-comportamiento {
         padding: 12px 16px;
         border-radius: 8px;
@@ -95,6 +127,7 @@ st.markdown("""
         border: 1px solid #334155;
     }
     
+    /* TABLA MATRICIAL GSI MODIFICADO */
     .tabla-gsi-oscura { 
         width: 100%; 
         border-collapse: collapse; 
@@ -129,7 +162,6 @@ st.markdown("<hr>", unsafe_allow_html=True)
 st.sidebar.header("🛠️ 1. Datos del Testigo (Core Run)")
 longitud_total = st.sidebar.number_input("Longitud Total del Tramo (cm):", min_value=10, max_value=1000, value=200, step=10)
 
-# El usuario puede modificar libremente la cantidad de fragmentos
 num_fragmentos = st.sidebar.number_input("N° de Fragmentos Registrados:", min_value=1, max_value=30, value=4, step=1)
 
 st.sidebar.subheader("📐 Registro de Longitudes (cm):")
@@ -150,7 +182,7 @@ condicion_seleccionada = st.sidebar.selectbox(
     index=2
 )
 
-# Textos completos recuperados del ábaco oficial
+# Estructura informativa basada en el ábaco de Hoek
 datos_condicion = {
     "MUY BUENA (MB)": {
         "desc": "Extremadamente resistente, fresca. Superficie de las discontinuidades muy rugosas e inalteradas, cerradas. (Rc > 250 MPa).", 
@@ -177,9 +209,9 @@ datos_condicion = {
 info_activa = datos_condicion[condicion_seleccionada]
 st.sidebar.markdown(f"""
     <div class="panel-orientacion-oscuro" style="border-left-color: {info_activa['color']};">
-        <b style="color: {info_activa['color']}; font-size: 13px;">🔬 Condición:</b><br>
+        <b style="color: {info_activa['color']}; font-size: 13px;">🔬 Ensayo de Campo (Picota):</b><br>
         <b>Estado:</b> {info_activa['desc']}<br>
-        <b>Comportamiento:</b> <code style='color: #000000; background-color:#ffffff; padding:2px 4px; font-weight:bold; border-radius:3px;'>{info_activa['picota']}</code>
+        <b>Comportamiento:</b> <code style='color: #38bdf8; background-color:#111827; padding:2px 6px; font-weight:bold; border-radius:3px; border: 1px solid #334155;'>{info_activa['picota']}</code>
     </div>
 """, unsafe_allow_html=True)
 
@@ -225,24 +257,22 @@ codigo_final = matriz_letras[fila_activa][col_activa]
 valor_gsi_final = matriz_valores_gsi[fila_activa][col_activa]
 
 # ==============================================================================
-# MAPEO DEL COMPORTAMIENTO TÍPICO EN INGENIERÍA (NUEVA BASE DE DATOS)
+# MAPEO DE COMPORTAMIENTO TÍPICO SEGÚN RANGOS
 # ==============================================================================
 def obtener_comportamiento_geotecnico(rango_gsi):
     if rango_gsi == "N/A":
         return "Indeterminada", "Combinación estructural no registrada.", "#64748b"
     
-    # Extraemos el valor representativo más alto para clasificar según tu tabla
     try:
         limite_superior = int(rango_gsi.split("-")[0])
     except ValueError:
-        limite_superior = int(rango_gsi) # Caso del valor "5"
+        limite_superior = int(rango_gsi)
         
     if limite_superior > 85:
         return "Muy Buena", "Excelente autosoporte; bloques grandes y estables.", "#38bdf8"
     elif limite_superior > 65:
         return "Buena", "Buena estabilidad; requiere soporte ligero o localizado.", "#4ade80"
     elif limite_superior > 45:
-        # Nota: El rango "65-60" de nuestro caso entra de forma exacta aquí (Estabilidad Media)
         return "Regular", "Estabilidad media; bloques propensos a deslizar o caer.", "#f59e0b"
     elif limite_superior > 25:
         return "Mala", "Deformaciones rápidas; requiere soporte inmediato (pernos/shocrete).", "#f87171"
@@ -277,7 +307,6 @@ with col_izq:
             </div>
         """, unsafe_allow_html=True)
         
-        # ¡NUEVO COMPONENTE TRASLADADO DE LA TABLA DE COMPORTAMIENTO ADJUNTADA!
         st.markdown(f"""
             <div class="panel-comportamiento" style="background-color: #111827; border-left: 5px solid {color_comportamiento};">
                 <span style='color: {color_comportamiento}; font-weight: bold; font-size: 14px;'>📋 CALIDAD DE LA MASA ROCOSA: {calidad_roca.upper()}</span><br>
@@ -346,7 +375,7 @@ for i, fila in enumerate(filas_tabla):
                 bg = "#064e3b"; border = "border: 3px solid #4ade80; font-weight: bold; box-shadow: inset 0 0 8px #4ade80;"
             else:
                 bg = "#111827"; border = "border: 1px solid #334155;"
-            contenido = f"<b>{cod_gsi}</b><br><span style='font-size:12px; color:#ffffff;'>GSI: <b>{val_gsi}</b></span>"
+            contenido = f"<b>{cod_gsi}</b><br><span style='font-size:12px; color:#ffffff;'>Línea: <b>{val_gsi}</b></span>"
             
         html += f"<td style='background-color: {bg}; {border}'>{contenido}</td>"
     html += "</tr>"
