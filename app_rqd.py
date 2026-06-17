@@ -130,7 +130,7 @@ st.markdown("""
 
 # Encabezados principales
 st.title("Analizador Geotécnico RQD & GSI")
-st.markdown("<p style='color: #94a3b8; margin-top:-10px;'>Por: Jhojan Deybi Coaquira Mamani - Estudiante UNA Puno.</p>", unsafe_allow_html=True)
+st.markdown("<p style='color: #94a3b8; margin-top:-10px;'>Elaborado Por: Jhojan Deybi Coaquira Mamani - Estudiante de la Facultad de Ingeniería de minas - UNA Puno.</p>", unsafe_allow_html=True)
 st.markdown("<hr>", unsafe_allow_html=True)
 
 # ==============================================================================
