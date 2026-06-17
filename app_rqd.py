@@ -296,7 +296,7 @@ with col_izq:
         """, unsafe_allow_html=True)
 
 with col_der:
-    st.markdown("<b> Reconstrucción Lineal Correlativa del Testigo (Sin Desfase)</b>", unsafe_allow_html=True)
+    st.markdown("<b> Reconstrucción lineal del testigo</b>", unsafe_allow_html=True)
     
     html_sondaje = "<div style='border: 2px solid #334155; background-color: #111827; width: 100%; height: 50px; display: table; border-collapse: collapse; border-radius: 6px; overflow: hidden;'>"
     for idx, frag in enumerate(fragmentos):
