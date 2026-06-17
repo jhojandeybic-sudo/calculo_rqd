@@ -13,49 +13,50 @@ if __name__ == "__main__":
         sys.exit(stcli.main())
 # ==============================================================================
 
-# 1. CONFIGURACIÓN ESTRUCTURAL DE LA PÁGINA
+# 1. CONFIGURACIÓN ESTRUCTURAL DE ALTA DENSIDAD
 st.set_page_config(
     page_title="GSI Modificado - Engine Analytica", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Inyección de estilos CSS para un acabado profesional de alta densidad de datos
+# Estilos CSS Corporativos para Tablas Geomecánicas e Indicadores
 st.markdown("""
     <style>
     .reportview-container .main .block-container{ padding-top: 1rem; }
-    .stMetric { background-color: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #1e293b; }
-    div.stExpander { border: 1px solid #1e293b !important; box-sizing: border-box !important; }
-    table { width:100%; border-collapse: collapse; text-align: center; font-family: sans-serif; font-size: 11px; border: 1px solid #334155; }
-    th { background-color: #1e293b; color: #FFF; padding: 10px; border: 1px solid #334155; }
-    td { padding: 10px; border: 1px solid #334155; }
+    .stMetric { background-color: #0f172a; padding: 18px; border-radius: 8px; border: 1px solid #1e293b; }
+    div.stExpander { border: 1px solid #1e293b !important; }
+    table { width:100%; border-collapse: collapse; text-align: center; font-family: sans-serif; font-size: 11.5px; border: 1px solid #334155; }
+    th { background-color: #1e293b; color: #FFF; padding: 12px; border: 1px solid #334155; }
+    td { padding: 12px; border: 1px solid #334155; }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🧮 Plataforma de Caracterización Geomecánica: GSI Modificado")
-st.markdown("Determinación cuantitativa de la estructura del macizo rocoso y condiciones de discontinuidades.")
+# Encabezado Ejecutivo
+st.title("💎 Sistema de Logueo Geomecánico: RQD y GSI Modificado")
+st.markdown("Plataforma analítica para la clasificación estructural de macizos rocosos en ingeniería de minas y túneles.")
 st.markdown("---")
 
 # ==============================================================================
-# ETAPA 1: CAPTURA DE PARÁMETROS DEL TESTIGO (BARRA LATERAL)
+# BARRA LATERAL: ENTRADA DE DATOS UNIFICADA (INPUT)
 # ==============================================================================
-st.sidebar.header("📋 ETAPA 1: Parámetros del Testigo")
+st.sidebar.header("🛠️ 1. Parámetros del Testigo")
 
 longitud_total = st.sidebar.number_input(
     "Longitud Total de la Corrida (cm):", 
     min_value=10, max_value=1000, value=200, step=10,
-    help="Longitud total de la corrida o maniobra de perforación (Core Run)."
+    help="Longitud total del intervalo de perforación recuperado (Core Run)."
 )
 
 num_fragmentos = st.sidebar.number_input(
     "Cantidad de Fragmentos Medidos:",
     min_value=1, max_value=20, value=4, step=1,
-    help="Número de trozos o piezas físicas recuperadas a evaluar."
+    help="Número de piezas físicas de testigo a registrar."
 )
 
-st.sidebar.subheader("📐 Logueo de Fragmentos (cm):")
+st.sidebar.subheader("📐 Geometría de Fragmentos (cm):")
 fragmentos = []
-# Valores predeterminados depurados (Sin ceros que alteren la lógica de conteo de piezas)
+# Datos predeterminados depurados (Sin ceros analíticos para mantener el RQD base limpio)
 valores_ejercicio = [25, 15, 18, 32]
 
 for i in range(int(num_fragmentos)):
@@ -66,13 +67,10 @@ for i in range(int(num_fragmentos)):
     )
     fragmentos.append(val)
 
-# ==============================================================================
-# ETAPA 2: EVALUACIÓN CUANTITATIVA DE DISCONTINUIDADES (BARRA LATERAL)
-# ==============================================================================
 st.sidebar.markdown("---")
-st.sidebar.header("⛏️ ETAPA 2: Condición de Juntas")
+st.sidebar.header("⛏️ 2. Condición de Discontinuidades")
 condicion_seleccionada = st.sidebar.selectbox(
-    "Grado de Alteración / Rugosidad:",
+    "Grado de Alteración / Rugosidad de Juntas:",
     options=[
         "MUY BUENA (Superficies muy rugosas, inalteradas, cerradas)",
         "BUENA (Rugosa, levemente meteorizada, manchas de oxidación)",
@@ -81,52 +79,52 @@ condicion_seleccionada = st.sidebar.selectbox(
         "MUY POBRE (Superficie pulida/estriada, relleno de arcilla blanda)"
     ],
     index=2,
-    help="Evaluación empírica in situ mediante la resistencia a la picota y grado de alteración planar."
+    help="Evaluación geomecánica in situ mediante resistencia a la picota y estado planar."
 )
 
 # ==============================================================================
-# PROCESAMIENTO MATEMÁTICO AVANZADO - MATRICES TÉCNICAS
+# PROCESAMIENTO LOGICO-MATEMÁTICO (CÁLCULO DE ÍNDICES CRÍTICOS)
 # ==============================================================================
 fragmentos_validos = [f for f in fragmentos if f >= 10]
 suma_validos = sum(fragmentos_validos)
 rqd = (suma_validos / longitud_total) * 100 if longitud_total > 0 else 0.0
 
-# Clasificación de Fila (Estructura Litológica)
+# Asignación de Fila (Estructura del Macizo según RQD)
 if rqd > 75 and rqd <= 90:
-    fila_activa, estructura_label = 0, "LEVEMENTE FRACTURADA"
-    desc_fila = "Tres a menos sistemas de discontinuidades muy espaciadas entre sí (2 a 6 fracturas por metro)."
+    fila_activa, estructura_label = 0, "LEVEMENTE FRACTURADA (LF)"
+    desc_fila = "3 a menos sistemas de discontinuidades muy espaciadas (2-6 fracturas/metro)."
 elif rqd > 50 and rqd <= 75:
-    fila_activa, estructura_label = 1, "MODERADAMENTE FRACTURADA"
-    desc_fila = "Muy bien trabada, no disturbada, bloques cúbicos formados por tres sistemas de discontinuidades ortogonales (6 a 12 fracturas por metro)."
+    fila_activa, estructura_label = 1, "MODERADAMENTE FRACTURADA (F)"
+    desc_fila = "Bloques cúbicos bien trabados formados por 3 familias ortogonales (6-12 fracturas/metro)."
 elif rqd > 25 and rqd <= 50:
-    fila_activa, estructura_label = 2, "MUY FRACTURADA"
-    desc_fila = "Moderadamente trabada, parcialmente disturbada, bloques angulosos formados por 4 o más familias de discontinuidades (12 a 20 fracturas por metro)."
+    fila_activa, estructura_label = 2, "MUY FRACTURADA (MF)"
+    desc_fila = "Bloques angulosos formados por 4 o más familias de discontinuidades (12-20 fracturas/metro)."
 else:
     if suma_validos == 0 and num_fragmentos > 4:
-        fila_activa, estructura_label = 4, "TRITURADA O BRECHADA"
-        desc_fila = "Ligeramente trabada, masa rocosa extremadamente rota con una mezcla de fragmentos fácilmente disgregables, angulosos y redondeados (Sin RQD)."
+        fila_activa, estructura_label = 4, "TRITURADA O BRECHADA (T)"
+        desc_fila = "Masa rocosa extremadamente rota, fragmentos fácilmente disgregables. Sin RQD."
     else:
-        fila_activa, estructura_label = 3, "INTENSAMENTE FRACTURADA"
-        desc_fila = "Plegamiento y fallamiento con muchas discontinuidades interceptadas formando bloques angulosos o irregulares (Más de 20 fracturas por metro)."
+        fila_activa, estructura_label = 3, "INTENSAMENTE FRACTURADA (IF)"
+        desc_fila = "Plegamiento/fallamiento severo con bloques irregulares (Más de 20 fracturas/metro)."
 
-# Clasificación de Columna (Condición Superficial)
+# Asignación de Columna (Condición Superficial)
 if "MUY BUENA" in condicion_seleccionada:
-    col_activa, condicion_label = 0, "MUY BUENA"
-    desc_columna = "Extremadamente resistente, fresca, superficie de las discontinuidades muy rugosas e inalteradas, cerradas. Se astilla con golpes de picota. (Rc > 250 MPa)."
+    col_activa, condicion_label = 0, "MUY BUENA (MB)"
+    desc_columna = "Superficies inalteradas, cerradas. Se astilla con picota (Rc > 250 MPa)."
 elif "BUENA" in condicion_seleccionada:
-    col_activa, condicion_label = 1, "BUENA"
-    desc_columna = "Muy resistente, levemente alterada, discontinuidades rugosas, ligeramente alterada, manchas de oxidación, ligeramente abierta. Se rompe con varios golpes de picota. (Rc 100 a 250 MPa)."
+    col_activa, condicion_label = 1, "BUENA (B)"
+    desc_columna = "Levemente alterada con manchas de oxidación, ligeramente abierta (Rc 100-250 MPa)."
 elif "REGULAR" in condicion_seleccionada:
-    col_activa, condicion_label = 2, "REGULAR"
-    desc_columna = "Resistente, levemente alterada, discontinuidades lisas, moderadamente alteradas, ligeramente abierta. Se rompe con uno o dos golpes de picota. (Rc 50 a 100 MPa)."
+    col_activa, condicion_label = 2, "REGULAR (R)"
+    desc_columna = "Superficie lisa, moderadamente alterada. Rompe con 1 o 2 golpes de picota (Rc 50-100 MPa)."
 elif "POBRE" in condicion_seleccionada:
-    col_activa, condicion_label = 3, "POBRE"
-    desc_columna = "Moderadamente resistente, moderadamente alterada, superficie pulida o con estriaciones, muy alterada, relleno compacto o con fragmentos de roca. Se indenta superficialmente. (Rc 25 a 50 MPa)."
+    col_activa, condicion_label = 3, "POBRE (P)"
+    desc_columna = "Superficie pulida/estriada, relleno compacto o fragmentado (Rc 25-50 MPa)."
 else:
-    col_activa, condicion_label = 4, "MUY POBRE"
-    desc_columna = "Blanda, muy alterada, superficie pulida y estriada, muy abierta, con relleno de arcillas blandas. Se disgrega o indenta superficialmente. (Rc < 25 MPa)."
+    col_activa, condicion_label = 4, "MUY POBRE (MP)"
+    desc_columna = "Muy alterada, abierta con rellenos de arcillas blandas, se disgrega (Rc < 25 MPa)."
 
-# Definición de Matrices Originales de Hoek
+# Definición de Estructura de Matrices Originales
 matriz_letras = [
     ["LF/MB", "LF/B", "LF/R", "LF/P", "LF/MP"],
     ["F/MB",  "F/B",  "F/R",  "F/P",  "F/MP"],
@@ -147,133 +145,120 @@ codigo_final = matriz_letras[fila_activa][col_activa]
 valor_gsi_final = matriz_valores_gsi[fila_activa][col_activa]
 
 # ==============================================================================
-# ETAPA 3: INTERFAZ GRÁFICA Y REPORTABILIDAD (ORDEN LÓGICO DE PRODUCCIÓN)
+# PANEL PRINCIPAL: DISTRIBUCIÓN LOGICA EN PESTAÑAS (OUTPUT)
 # ==============================================================================
-col_panel, col_diagrama = st.columns([1.1, 1.4])
+tab_reporte, tab_matrices, tab_glosario = st.tabs([
+    "📊 Pestaña 1: Diagnóstico Operativo", 
+    "🗺️ Pestaña 2: Auditoría de Matrices GSI", 
+    "📖 Pestaña 3: Glosario de Ingeniería"
+])
 
-with col_panel:
-    st.subheader("🏁 ETAPA 3: Diagnóstico y Reporte Geomecánico")
-    st.metric(label="RQD Resultante Calculado", value=f"{rqd:.1f} %")
+# --- PESTAÑA 1: REPORTE DE CÁLCULO Y GRÁFICO DEL SONDAJE ---
+with tab_reporte:
+    col_res, col_graf = st.columns([1, 1.4])
     
-    st.markdown("### 🧬 Parámetros de Diseño Clasificados:")
-    st.info(f"**Estructura Dominante:** {estructura_label}\n\n*{desc_fila}*")
-    st.info(f"**Estado de Discontinuidades:** {condicion_label}\n\n*{desc_columna}*")
-    
-    st.success(f"**Zonificación Litológica:** `{codigo_final}` &nbsp;|&nbsp; **Valor GSI Modificado:** `~ {valor_gsi_final}`")
-
-with col_diagrama:
-    st.subheader("📐 Representación del Sondaje (A Escala)")
-    st.caption("Reconstrucción lineal y continua del estado físico del testigo:")
-
-    html_sondaje = "<div style='border: 3px solid #FFF; background-color: #1e293b; width: 100%; height: 60px; display: table; border-collapse: collapse; border-radius: 6px; overflow: hidden;'>"
-    
-    suma_piezas = sum(fragmentos)
-    perdida_total = longitud_total - suma_piezas
-    
-    for idx, frag in enumerate(fragmentos):
-        if frag > 0:
-            pct = (frag / longitud_total) * 100
-            color = "#1d4ed8" if frag >= 10 else "#b91c1c"  # Azul Geomecánico vs Rojo Falla
-            html_sondaje += f"<div style='display: table-cell; width: {pct}%; background-color: {color}; border-right: 2px solid #0f172a; color: #FFF; text-align: center; vertical-align: middle; font-weight: bold; font-size: 12px;'>L{idx+1}<br>{frag}cm</div>"
-            
-    if perdida_total > 0:
-        pct_p = (perdida_total / longitud_total) * 100
-        html_sondaje += f"<div style='display: table-cell; width: {pct_p}%; background-color: #020617; color: #475569; text-align: center; vertical-align: middle; font-size: 11px; font-style: italic;'>Pérdida<br>{perdida_total}cm</div>"
+    with col_res:
+        st.subheader("📋 Resumen Geotécnico de Salida")
+        st.metric(label="RQD Resultante Computado", value=f"{rqd:.1f} %")
         
-    html_sondaje += "</div>"
-    st.markdown(html_sondaje, unsafe_allow_html=True)
+        st.markdown(f"**Estructura del Macizo:** `{estructura_label}`")
+        st.caption(f"_{desc_fila}_")
+        
+        st.markdown(f"**Condición Superficial:** `{condicion_label}`")
+        st.caption(f"_{desc_columna}_")
+        
+        st.success(f"### 🎯 GSI Estimado: ~ {valor_gsi_final} (Clase: {codigo_final})")
+        
+    with col_graf:
+        st.subheader("📐 Reconstrucción Estructural a Escala Real")
+        st.caption("Mapeo lineal continuo del core run recuperado:")
+        
+        html_sondaje = "<div style='border: 3px solid #FFF; background-color: #1e293b; width: 100%; height: 65px; display: table; border-collapse: collapse; border-radius: 6px; overflow: hidden;'>"
+        suma_piezas = sum(fragmentos)
+        perdida_total = longitud_total - suma_piezas
+        
+        for idx, frag in enumerate(fragmentos):
+            if frag > 0:
+                pct = (frag / longitud_total) * 100
+                color = "#1d4ed8" if frag >= 10 else "#b91c1c" # Azul ISRM (Apto) vs Rojo Falla
+                html_sondaje += f"<div style='display: table-cell; width: {pct}%; background-color: {color}; border-right: 2px solid #0f172a; color: #FFF; text-align: center; vertical-align: middle; font-weight: bold; font-size: 11px;'>L{idx+1}<br>{frag}cm</div>"
+                
+        if perdida_total > 0:
+            pct_p = (perdida_total / longitud_total) * 100
+            html_sondaje += f"<div style='display: table-cell; width: {pct_p}%; background-color: #020617; color: #475569; text-align: center; vertical-align: middle; font-size: 11px; font-style: italic;'>Pérdida<br>{perdida_total}cm</div>"
+            
+        html_sondaje += "</div>"
+        st.markdown(html_sondaje, unsafe_allow_html=True)
+        st.markdown("<p style='font-size:12px; text-align:center; margin-top:8px;'><span style='color:#1d4ed8;'>■</span> Fragmento Apto (≥10cm) &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#b91c1c;'>■</span> Fragmento Descartado (<10cm) &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#020617;'>■</span> Zona No Recuperada</p>", unsafe_allow_html=True)
+        
+        st.write("---")
+        st.latex(rf"\text{{RQD}} = \left( \frac{{\sum \text{{L}}_{{\ge 10\,\text{{cm}}}}}}{{\text{{L}}_{{\text{{total}}}}}} \right) \times 100 = \left( \frac{{{suma_validos}\,\text{{cm}}}}{{{longitud_total}\,\text{{cm}}}} \right) \times 100 = {rqd:.1f}\%")
+
+# --- PESTAÑA 2: AUDITORÍA VISUAL DE MATRICES ---
+with tab_matrices:
+    st.subheader("🗺️ Verificación de Posicionamiento en Matrices de Hoek")
+    st.caption("El recuadro verde con fondo resaltado indica la posición exacta de las coordenadas ingresadas.")
     
-    st.markdown("<p style='font-size:12px; text-align:center;'><span style='color:#1d4ed8;'>■</span> Fragmento Apto (≥10cm) &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#b91c1c;'>■</span> Fragmento Rechazado (<10cm) &nbsp;&nbsp;&nbsp;&nbsp; <span style='color:#020617;'>■</span> Longitud No Recuperada</p>", unsafe_allow_html=True)
+    sub_tab_letras, sub_tab_valores = st.tabs(["🔤 Matriz de Códigos Litológicos", "🔢 Matriz de Índices GSI"])
     
-    st.write("---")
-    st.write("**Ecuación Matemática Aplicada:**")
-    st.latex(rf"\text{{RQD}} = \left( \frac{{\sum \text{{L}}_{{\ge 10\,\text{{cm}}}}}}{{\text{{L}}_{{\text{{total}}}}}} \right) \times 100 = \left( \frac{{{suma_validos}\,\text{{cm}}}}{{{longitud_total}\,\text{{cm}}}} \right) \times 100 = {rqd:.1f}\%")
+    filas_tabla = [
+        "<b>LEVEMENTE FRACTURADA (LF)</b><br><small>RQD 75-90%</small>",
+        "<b>MODERADAMENTE FRACTURADA (F)</b><br><small>RQD 50-75%</small>",
+        "<b>MUY FRACTURADA (MF)</b><br><small>RQD 25-50%</small>",
+        "<b>INTENSAMENTE FRACTURADA (IF)</b><br><small>RQD 0-25%</small>",
+        "<b>TRITURADA O BRECHADA (T)</b><br><small>Sin RQD</small>"
+    ]
+    headers_comunes = ["<th>MUY BUENA (MB)</th>", "<th>BUENA (B)</th>", "<th>REGULAR (R)</th>", "<th>POBRE (P)</th>", "<th>MUY POBRE (MP)</th>"]
 
-# ==============================================================================
-# 5. MATRICES INTERACTIVAS CON AUDITORÍA DE ENCABEZADOS EN TIEMPO REAL
-# ==============================================================================
-st.write("---")
-st.subheader("🗺️ Matrices de Correlación e Índices GSI")
-st.caption("Usa las pestañas para alternar entre formatos. El cuadro verde resalta la intersección de tus datos de campo.")
+    with sub_tab_letras:
+        html = f"<table><thead><tr><th>ESTRUCTURA DEL MACIZO</th>{"".join(headers_comunes)}</tr></thead><tbody>"
+        for i, fila in enumerate(filas_tabla):
+            html += f"<tr><td style='background-color: #0f172a; text-align: left; color: #FFF;'>{fila}</td>"
+            for j in range(5):
+                celda = matriz_letras[i][j]
+                bg = "#155724" if (i == fila_activa and j == col_activa) else "#1e293b"
+                color = "#FFF" if (i == fila_activa and j == col_activa) else "#94a3b8"
+                border = "border: 3.5px solid #28a745; font-weight: bold;" if (i == fila_activa and j == col_activa) else "border: 1px solid #334155;"
+                html += f"<td style='background-color: {bg}; color: {color}; {border}'><b>{celda}</b></td>"
+            html += "</tr>"
+        html += "</tbody></table>"
+        st.markdown(html, unsafe_allow_html=True)
 
-tab_letras, tab_valores = st.tabs(["🔤 Matriz de Códigos (Letras)", "🔢 Matriz de Valores de Contorno"])
+    with sub_tab_valores:
+        html = f"<table><thead><tr><th>ESTRUCTURA DEL MACIZO</th>{"".join(headers_comunes)}</tr></thead><tbody>"
+        for i, fila in enumerate(filas_tabla):
+            html += f"<tr><td style='background-color: #0f172a; text-align: left; color: #FFF;'>{fila}</td>"
+            for j in range(5):
+                celda = matriz_valores_gsi[i][j]
+                bg = "#155724" if (i == fila_activa and j == col_activa) else "#1e293b"
+                color = "#FFF" if (i == fila_activa and j == col_activa) else "#94a3b8"
+                border = "border: 3.5px solid #28a745; font-weight: bold;" if (i == fila_activa and j == col_activa) else "border: 1px solid #334155;"
+                html += f"<td style='background-color: {bg}; color: {color}; {border}'>Índice GSI:<br><b>{celda}</b></td>"
+            html += "</tr>"
+        html += "</tbody></table>"
+        st.markdown(html, unsafe_allow_html=True)
 
-filas_tabla = [
-    "<b>LEVEMENTE FRACTURADA (LF)</b><br><small>RQD 75-90%</small>",
-    "<b>MODERADAMENTE FRACTURADA (F)</b><br><small>RQD 50-75%</small>",
-    "<b>MUY FRACTURADA (MF)</b><br><small>RQD 25-50%</small>",
-    "<b>INTENSAMENTE FRACTURADA (IF)</b><br><small>RQD 0-25%</small>",
-    "<b>TRITURADA O BRECHADA (T)</b><br><small>Sin RQD</small>"
-]
-
-headers_comunes = [
-    "<th>MUY BUENA (MB)</th>", "<th>BUENA (B)</th>", "<th>REGULAR (R)</th>", "<th>POBRE (P)</th>", "<th>MUY POBRE (MP)</th>"
-]
-
-# --- TABLA DE CÓDIGOS ---
-with tab_letras:
-    html = f"""<table><thead><tr><th>ESTRUCTURA DEL MACIZO</th>{"".join(headers_comunes)}</tr></thead><tbody>"""
-    for i, fila in enumerate(filas_tabla):
-        html += f"<tr><td style='background-color: #0f172a; text-align: left; color: #FFF;'>{fila}</td>"
-        for j in range(5):
-            celda = matriz_letras[i][j]
-            bg = "#155724" if (i == fila_activa and j == col_activa) else "#1e293b"
-            color = "#FFF" if (i == fila_activa and j == col_activa) else "#94a3b8"
-            border = "border: 3.5px solid #28a745; font-weight: bold;" if (i == fila_activa and j == col_activa) else "border: 1px solid #334155;"
-            html += f"<td style='background-color: {bg}; color: {color}; {border}'><b>{celda}</b></td>"
-        html += "</tr>"
-    html += "</tbody></table>"
-    st.markdown(html, unsafe_allow_html=True)
-
-# --- TABLA DE CONTORNOS NUMÉRICOS ---
-with tab_valores:
-    html = f"""<table><thead><tr><th>ESTRUCTURA DEL MACIZO</th>{"".join(headers_comunes)}</tr></thead><tbody>"""
-    for i, fila in enumerate(filas_tabla):
-        html += f"<tr><td style='background-color: #0f172a; text-align: left; color: #FFF;'>{fila}</td>"
-        for j in range(5):
-            celda = matriz_valores_gsi[i][j]
-            bg = "#155724" if (i == fila_activa and j == col_activa) else "#1e293b"
-            color = "#FFF" if (i == fila_activa and j == col_activa) else "#94a3b8"
-            border = "border: 3.5px solid #28a745; font-weight: bold;" if (i == fila_activa and j == col_activa) else "border: 1px solid #334155;"
-            html += f"<td style='background-color: {bg}; color: {color}; {border}'>GSI:<br><b>{celda}</b></td>"
-        html += "</tr>"
-    html += "</tbody></table>"
-    st.markdown(html, unsafe_allow_html=True)
-
-# ==============================================================================
-# 6. CRITERIOS DESPLEGABLES DINÁMICOS Y DETALLES DE FILAS Y COLUMNAS
-# ==============================================================================
-st.markdown("### 🔍 Auditoría y Criterios Detallados de Filas y Columnas")
-
-# Botón interactivo inteligente para analizar la posición actual calculada
-with st.expander("🎯 VER DETALLE DE LA INTERSECCIÓN ACTUADA (Fila y Columna Actual)"):
-    col_f, col_c = st.columns(2)
-    with col_f:
-        st.markdown(f"**Fila Evaluada: `{estructura_label}`**")
-        st.caption(desc_fila)
-    with col_c:
-        st.markdown(f"**Columna Evaluada: `{condicion_label}`**")
-        st.caption(desc_columna)
-
-# Desplegables de glosario completo e inalterable fiel a tus láminas de control
-col_gl1, col_gl2 = st.columns(2)
-
-with col_gl1:
-    with st.expander("📖 Glosario Técnico de Filas (Estructura Geológica)"):
-        st.markdown("""
-        * **LEVEMENTE FRACTURADA (LF):** 3 a menos sistemas de discontinuidades muy espaciadas entre sí (2 a 6 fracturas por metro). RQD: 75% a 90%.
-        * **MODERADAMENTE FRACTURADA (F):** Muy bien trabada, no disturbada, bloques cúbicos formados por tres sistemas de discontinuidades ortogonales (6 a 12 fracturas por metro). RQD: 50% a 75%.
-        * **MUY FRACTURADA (MF):** Moderadamente trabada, parcialmente disturbada, bloques angulosos formados por 4 o más familias de discontinuidades (12 a 20 fracturas por metro). RQD: 25% a 50%.
-        * **INTENSAMENTE FRACTURADA (IF):** Plegamiento y fallamiento con muchas discontinuidades interceptadas formando bloques angulosos o irregulares (Más de 20 fracturas por metro). RQD: 0% a 25%.
-        * **TRITURADA O BRECHADA (T):** Ligeramente trabada, masa rocosa extremadamente rota con una mezcla de fragmentos fácilmente disgregables, angulosos y redondeados. No posee RQD asignable.
-        """)
-
-with col_gl2:
-    with st.expander("📖 Glosario Técnico de Columnas (Condición Superficial)"):
-        st.markdown("""
-        * **MUY BUENA (MB):** Extremadamente resistente, fresca, superficie de las discontinuidades muy rugosas e inalteradas, cerradas. Se astilla con golpes de picota. ($R_c > 250\\text{ MPa}$).
-        * **BUENA (B):** Muy resistente, levemente alterada, discontinuidades rugosas, ligeramente alterada, manchas de oxidación, ligeramente abierta. Se rompe con varios golpes de picota. ($R_c\\text{ } 100\\text{ a } 250\\text{ MPa}$).
-        * **REGULAR (R):** Resistente, levemente alterada, discontinuidades lisas, moderadamente alteradas, ligeramente abierta. Se rompe con uno o dos golpes de picota. ($R_c\\text{ } 50\\text{ a } 100\\text{ MPa}$).
-        * **POBRE (P):** Moderadamente resistente, moderadamente alterada, superficie pulida o con estriaciones, muy alterada, relleno compacto o con fragmentos de roca. Se indenta superficialmente. ($R_c\\text{ } 25\\text{ a } 50\\text{ MPa}$).
-        * **MUY POBRE (MP):** Blanda, muy alterada, superficie pulida y estriada, muy abierta, con relleno de arcillas blandas. Se disgrega o indenta superficialmente. ($R_c < 25\\text{ MPa}$).
-        """)
+# --- PESTAÑA 3: GLOSARIO TÉCNICO INALTERABLE ---
+with tab_glosario:
+    st.subheader("📖 Sustento y Criterios Técnicos de Clasificación")
+    col_gl1, col_gl2 = st.columns(2)
+    
+    with col_gl1:
+        with st.expander("🔬 Estructuras Litológicas (Filas) - Detalle Completo", expanded=True):
+            st.markdown("""
+            * **LEVEMENTE FRACTURADA (LF):** 3 a menos familias de discontinuidades muy espaciadas (2 a 6 fracturas por metro). RQD del 75% al 90%.
+            * **MODERADAMENTE FRACTURADA (F):** Muy bien trabada, bloques cúbicos formados por 3 familias ortogonales (6 a 12 fracturas por metro). RQD del 50% al 75%.
+            * **MUY FRACTURADA (MF):** Moderadamente trabada, parcialmente disturbada, bloques angulosos por 4 o más familias (12 a 20 fracturas por metro). RQD del 25% al 50%.
+            * **INTENSAMENTE FRACTURADA (IF):** Macizo severamente plegado/fallado con bloques irregulares (Más de 20 fracturas por metro). RQD del 0% al 25%.
+            * **TRITURADA O BRECHADA (T):** Masa rocosa rota, fragmentos fácilmente disgregables mezclados (Sin RQD asignable).
+            """)
+            
+    with col_gl2:
+        with st.expander("🔍 Condición Superficial de Juntas (Columnas) - Detalle Completo", expanded=True):
+            st.markdown("""
+            * **MUY BUENA (MB):** Superficies muy rugosas, frescas, cerradas e inalteradas. Se astilla con golpes de picota ($R_c > 250\\text{ MPa}$).
+            * **BUENA (B):** Superficies rugosas, levemente alteradas con manchas de oxidación, ligeramente abiertas ($R_c\\text{ } 100\\text{ a } 250\\text{ MPa}$).
+            * **REGULAR (R):** Superficies lisas, moderadamente alteradas, ligeramente abiertas. Rompe con 1 o 2 golpes de picota ($R_c\\text{ } 50\\text{ a } 100\\text{ MPa}$).
+            * **POBRE (P):** Superficies pulidas o estriadas, alteradas con relleno compacto o fragmentos de roca ($R_c\\text{ } 25\\text{ a } 50\\text{ MPa}$).
+            * **MUY POBRE (MP):** Superficies pulidas/estriadas con rellenos potentes de arcillas blandas, se disgrega con facilidad ($R_c < 25\\text{ MPa}$).
+            """)
