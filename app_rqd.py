@@ -296,22 +296,149 @@ with col_izq:
         """, unsafe_allow_html=True)
 
 with col_der:
-    st.markdown("<b>📐 Reconstrucción Lineal Correlativa del Testigo (Sin Desfase)</b>", unsafe_allow_html=True)
-    
-    html_sondaje = "<div style='border: 2px solid #334155; background-color: #111827; width: 100%; height: 50px; display: table; border-collapse: collapse; border-radius: 6px; overflow: hidden;'>"
-    for idx, frag in enumerate(fragmentos):
-        if frag > 0:
-            pct = (frag / longitud_total) * 100
-            color = "#0284c7" if frag >= 10 else "#dc2626"
-            html_sondaje += f"<div style='display: table-cell; width: {pct}%; background-color: {color}; border-right: 1px solid #0f172a; color: #ffffff; text-align: center; vertical-align: middle; font-weight: bold; font-size: 10px;'>L{idx+1}<br>{frag}cm</div>"
-            
-    suma_piezas = sum(fragmentos)
-    perdida_total = longitud_total - suma_piezas
-    if perdida_total > 0:
-        pct_p = (perdida_total / longitud_total) * 100
-        html_sondaje += f"<div style='display: table-cell; width: {pct_p}%; background-color: #334155; color: #94a3b8; text-align: center; vertical-align: middle; font-size: 10px; font-style: italic;'>Pérdida<br>{perdida_total}cm</div>"
-    html_sondaje += "</div>"
-    st.markdown(html_sondaje, unsafe_allow_html=True)
+st.markdown("<b>📐 Reconstrucción Lineal Correlativa del Testigo</b>", unsafe_allow_html=True)
+
+```
+# ==========================================================
+# TESTIGO
+# ==========================================================
+
+html_sondaje = """
+<div style='width:100%;'>
+"""
+
+html_sondaje += """
+<div style='
+    border:2px solid #334155;
+    background:#111827;
+    width:100%;
+    height:55px;
+    display:flex;
+    border-radius:6px;
+    overflow:hidden;
+'>
+"""
+
+for idx, frag in enumerate(fragmentos):
+
+    if frag > 0:
+
+        pct = (frag / longitud_total) * 100
+
+        color = "#0284c7" if frag >= 10 else "#dc2626"
+
+        html_sondaje += f"""
+        <div style='
+            width:{pct}%;
+            background:{color};
+            border-right:1px solid #0f172a;
+        '></div>
+        """
+
+suma_piezas = sum(fragmentos)
+perdida_total = longitud_total - suma_piezas
+
+if perdida_total > 0:
+
+    pct_p = (perdida_total / longitud_total) * 100
+
+    html_sondaje += f"""
+    <div style='
+        width:{pct_p}%;
+        background:#334155;
+    '></div>
+    """
+
+html_sondaje += "</div>"
+
+# ==========================================================
+# COTAS INDIVIDUALES DEBAJO DE CADA FRAGMENTO (TIPO CAD)
+# ==========================================================
+
+html_sondaje += """
+<div style='
+    display:flex;
+    width:100%;
+    margin-top:4px;
+    align-items:flex-start;
+'>
+"""
+
+for frag in fragmentos:
+
+    if frag > 0:
+
+        pct = (frag / longitud_total) * 100
+
+        html_sondaje += f"""
+        <div style='
+            width:{pct}%;
+            text-align:center;
+        '>
+
+            <svg width="100%" height="40">
+
+                <line x1="5%" y1="8" x2="95%" y2="8"
+                    stroke="#94a3b8"
+                    stroke-width="1"/>
+
+                <line x1="5%" y1="3" x2="5%" y2="13"
+                    stroke="#94a3b8"
+                    stroke-width="1"/>
+
+                <line x1="95%" y1="3" x2="95%" y2="13"
+                    stroke="#94a3b8"
+                    stroke-width="1"/>
+
+                <text x="50%"
+                      y="28"
+                      fill="#38bdf8"
+                      font-size="11"
+                      font-weight="bold"
+                      text-anchor="middle">
+                    {frag} cm
+                </text>
+
+            </svg>
+
+        </div>
+        """
+
+html_sondaje += "</div></div>"
+
+st.markdown(html_sondaje, unsafe_allow_html=True)
+
+# ==========================================================
+# FORMULA DEL RQD
+# ==========================================================
+
+st.markdown("### 📐 Desarrollo del Cálculo del RQD")
+
+fragmentos_rqd = [f for f in fragmentos if f >= 10]
+
+if fragmentos_rqd:
+
+    formula = " + ".join(str(f) for f in fragmentos_rqd)
+
+    st.latex(
+        rf"RQD = \frac{{{formula}}}{{{longitud_total}}}\times100"
+    )
+
+    st.latex(
+        rf"RQD = \frac{{{sum(fragmentos_rqd)}}}{{{longitud_total}}}\times100"
+    )
+
+    st.latex(
+        rf"RQD = {rqd:.2f}\%"
+    )
+
+else:
+
+    st.latex(
+        rf"RQD = \frac{{0}}{{{longitud_total}}}\times100 = 0\%"
+    )
+```
+
 
 st.markdown("<hr>", unsafe_allow_html=True)
 
