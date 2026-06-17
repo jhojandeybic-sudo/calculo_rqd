@@ -3,7 +3,7 @@ import os
 import sys
 
 # ==============================================================================
-# TRUCO DEL TRIÁNGULO: Auto-ejecución de Streamlit al presionar Play en VS Code
+# Auto-ejecución de Streamlit al presionar Play en VS Code
 # ==============================================================================
 if __name__ == "__main__":
     if not st.runtime.exists():
@@ -20,7 +20,7 @@ st.set_page_config(
 )
 
 # ==============================================================================
-# ARQUITECTURA CSS: Optimización de Espacios Muertos y Paneles de Ingeniería
+# Optimización de Espacios Muertos y Paneles de Ingeniería
 # ==============================================================================
 st.markdown("""
     <style>
@@ -129,20 +129,20 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Encabezados principales
-st.title("💎 Analizador Geotécnico GSI Modificado Real")
+st.title("Analizador Geotécnico RQD & GSI")
 st.markdown("<p style='color: #94a3b8; margin-top:-10px;'>Cálculo automatizado del Índice Geológico de Resistencia mediante control de testigos e ingeniería de comportamiento in-situ.</p>", unsafe_allow_html=True)
 st.markdown("<hr>", unsafe_allow_html=True)
 
 # ==============================================================================
 # BARRA LATERAL: ENTRADA DINÁMICA DE DATOS
 # ==============================================================================
-st.sidebar.header("🛠️ 1. Datos del Testigo (Core Run)")
+st.sidebar.header("1. Datos del Testigo (Core Run)")
 longitud_total = st.sidebar.number_input("Longitud Total del Tramo (cm):", min_value=10, max_value=1000, value=200, step=10)
 
 # El usuario puede modificar libremente la cantidad de fragmentos
 num_fragmentos = st.sidebar.number_input("N° de Fragmentos Registrados:", min_value=1, max_value=30, value=4, step=1)
 
-st.sidebar.subheader("📐 Registro de Longitudes (cm):")
+st.sidebar.subheader("Registro de Longitudes (cm):")
 valores_predeterminados = [25, 15, 18, 32]
 fragmentos = []
 
@@ -152,7 +152,7 @@ for i in range(int(num_fragmentos)):
     fragmentos.append(val)
 
 st.sidebar.markdown("<hr>", unsafe_allow_html=True)
-st.sidebar.header("⛏️ 2. Clasificación Superficial")
+st.sidebar.header("2. Clasificación Superficial")
 
 condicion_seleccionada = st.sidebar.selectbox(
     "Condición Superficial:",
@@ -264,7 +264,7 @@ calidad_roca, comportamiento_texto, color_comportamiento = obtener_comportamient
 # ==============================================================================
 # DESPLIEGUE DEL PANEL DE CONTROL E INFORME COMPACTO
 # ==============================================================================
-st.subheader("📊 Panel de Control y Análisis Operativo")
+st.subheader("Panel de Control y Análisis Operativo")
 col_izq, col_der = st.columns([1, 1.2])
 
 with col_izq:
@@ -296,7 +296,7 @@ with col_izq:
         """, unsafe_allow_html=True)
 
 with col_der:
-    st.markdown("<b>📐 Reconstrucción Lineal Correlativa del Testigo (Sin Desfase)</b>", unsafe_allow_html=True)
+    st.markdown("<b> Reconstrucción Lineal Correlativa del Testigo (Sin Desfase)</b>", unsafe_allow_html=True)
     
     html_sondaje = "<div style='border: 2px solid #334155; background-color: #111827; width: 100%; height: 50px; display: table; border-collapse: collapse; border-radius: 6px; overflow: hidden;'>"
     for idx, frag in enumerate(fragmentos):
@@ -318,7 +318,7 @@ st.markdown("<hr>", unsafe_allow_html=True)
 # ==============================================================================
 # AUDITORÍA DE MATRIZ COMPLETA
 # ==============================================================================
-st.subheader("🗺️ Matriz de Doble Entrada Completa: GSI Modificado")
+st.subheader("Matriz de Doble Entrada Completa: GSI Modificado")
 
 filas_tabla = [
     "<b>LEVEMENTE FRACTURADA (LF)</b><br><small style='color:#94a3b8;'>Tres a menos sistemas muy espaciados<br><b>RQD 75 - 90%</b> (2 a 6 frac/m)</small>",
@@ -356,7 +356,7 @@ for i, fila in enumerate(filas_tabla):
                 bg = "#064e3b"; border = "border: 3px solid #4ade80; font-weight: bold; box-shadow: inset 0 0 8px #4ade80;"
             else:
                 bg = "#111827"; border = "border: 1px solid #334155;"
-            contenido = f"<b>{cod_gsi}</b><br><span style='font-size:12px; color:#ffffff;'>Línea: <b>{val_gsi}</b></span>"
+            contenido = f"<b>{cod_gsi}</b><br><span style='font-size:12px; color:#ffffff;'>GSI: <b>{val_gsi}</b></span>"
             
         html += f"<td style='background-color: {bg}; {border}'>{contenido}</td>"
     html += "</tr>"
