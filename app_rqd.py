@@ -60,11 +60,11 @@ st.markdown("""
         border: 1px solid #334155 !important;
     }
     [data-testid="stSidebar"] input {
-        color: #ffffff !important; /* Texto que digita el usuario en blanco */
+        color: #38bdf8 !important; /* Texto que digita el usuario en blanco */
     }
     [data-testid="stSidebar"] div[data-baseweb="select"] {
         background-color: #1e293b !important;
-        color: #ffffff !important;
+        color: #38bdf8 !important;
     }
     
     /* Estilos de fuentes generales y métricas */
