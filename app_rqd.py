@@ -14,13 +14,13 @@ if __name__ == "__main__":
 # ==============================================================================
 
 st.set_page_config(
-    page_title="GSI Modificado - Ajuste Estricto", 
+    page_title="GSI Modificado - Ajuste de Fragmentos", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ==============================================================================
-# ARQUITECTURA CSS: Control Absoluto de Contraste (Fondo Oscuro + Letras Visibles)
+# ARQUITECTURA CSS: Control de Contraste con Datos de Entrada en Negro
 # ==============================================================================
 st.markdown("""
     <style>
@@ -38,36 +38,45 @@ st.markdown("""
         margin-top: 1rem;
     }
 
-    /* BARRA LATERAL IZQUIERDA: Forzar tema oscuro y eliminar fondo blanco nativo */
+    /* BARRA LATERAL IZQUIERDA: Fondo oscuro */
     [data-testid="stSidebar"] {
         background-color: #0f172a !important;
         border-right: 1px solid #1e293b;
     }
     
-    /* Forzar visibilidad de textos y etiquetas en la barra lateral */
+    /* Forzar visibilidad de etiquetas y títulos en la barra lateral */
     [data-testid="stSidebar"] h1, 
     [data-testid="stSidebar"] h2, 
     [data-testid="stSidebar"] h3, 
     [data-testid="stSidebar"] p, 
     [data-testid="stSidebar"] label, 
     [data-testid="stSidebar"] span {
-        color: #38bdf8 !important; /* Blanco nítido de alta visibilidad */
+        color: #f8fafc !important;
     }
 
-    /* SOLUCIÓN AL ERROR DE INPUTS: Forzar fondo oscuro y texto blanco dentro de las cajas de llenado */
+    /* SOLUCIÓN DE CONTRASTE: Cajas de llenado claras con texto e inputs en NEGRO PREDETERMINADO */
     [data-testid="stSidebar"] div[data-baseweb="input"] {
-        background-color: #1e293b !important;
-        border: 1px solid #334155 !important;
+        background-color: #ffffff !important; /* Fondo blanco/claro para la caja de texto */
+        border: 2px solid #38bdf8 !important;  /* Borde celeste para resaltar */
+        border-radius: 6px !important;
     }
     [data-testid="stSidebar"] input {
-        color: #000000 !important; /* Texto que digita el usuario en blanco */
-    }
-    [data-testid="stSidebar"] div[data-baseweb="select"] {
-        background-color: #1e293b !important;
-        color: #ffffff !important;
+        color: #000000 !important; /* TEXTO E INPUTS EN COLOR NEGRO PURE */
+        font-weight: bold !important;
     }
     
-    /* Estilos de fuentes generales y métricas */
+    /* Estilización del selector selectbox para mantener coherencia */
+    [data-testid="stSidebar"] div[data-baseweb="select"] {
+        background-color: #ffffff !important;
+        border: 2px solid #38bdf8 !important;
+        border-radius: 6px !important;
+    }
+    [data-testid="stSidebar"] div[data-baseweb="select"] span {
+        color: #000000 !important; /* Texto del selector en negro */
+        font-weight: bold !important;
+    }
+    
+    /* Estilos de fuentes generales y métricas en el panel derecho */
     h1, h2, h3, p, span, label { color: #f8fafc !important; }
     div[data-testid="stMetricValue"] { color: #38bdf8 !important; font-weight: bold; }
     div[data-testid="stMetricLabel"] { color: #94a3b8 !important; }
@@ -110,33 +119,34 @@ st.markdown("<p style='color: #94a3b8;'>Cálculo automatizado con control estric
 st.markdown("<hr style='border-color: #334155;'>", unsafe_allow_html=True)
 
 # ==============================================================================
-# BARRA LATERAL: ENTRADA DE DATOS (ALTO CONTRASTE GARANTIZADO)
+# BARRA LATERAL: ENTRADA DE DATOS (CON VALORES CORREGIDOS EN NEGRO)
 # ==============================================================================
 st.sidebar.header("🛠️ 1. Datos del Testigo (Core Run)")
 
 longitud_total = st.sidebar.number_input("Longitud Total del Tramo (cm):", min_value=10, max_value=1000, value=200, step=10)
-num_fragmentos = st.sidebar.number_input("N° de Fragmentos Registrados:", min_value=1, max_value=20, value=4meto, step=1)
+
+# Fijado estrictamente a 4 fragmentos predeterminados según requerimiento
+valores_predeterminados = [25, 15, 18, 32]
+num_fragmentos = len(valores_predeterminados)
 
 st.sidebar.subheader("📐 Registro de Longitudes (cm):")
 fragmentos = []
-valores_defecto = [25, 15, 18, 32]
 
-for i in range(int(num_fragmentos)):
-    val_def = valores_defecto[i] if i < len(valores_defecto) else 10
+# Bucle exacto para los 4 fragmentos requeridos
+for i, val_def in enumerate(valores_predeterminados):
     val = st.sidebar.number_input(f"Fragmento L{i+1}:", min_value=0, max_value=200, value=val_def, step=1, key=f"l_{i}")
     fragmentos.append(val)
 
 st.sidebar.markdown("<hr style='border-color: #334155;'>", unsafe_allow_html=True)
 st.sidebar.header("⛏️ 2. Clasificación Superficial")
 
-# Se renombra el parámetro a Condición Superficial según solicitud
 condicion_seleccionada = st.sidebar.selectbox(
     "Condición Superficial:",
     options=["MUY BUENA (MB)", "BUENA (B)", "REGULAR (R)", "POBRE (P)", "MUY POBRE (MP)"],
     index=2
 )
 
-# Se actualizan las descripciones incluyendo textualmente el comportamiento con la picota
+# Descripciones oficiales de campo incluyendo el comportamiento con la picota
 datos_condicion = {
     "MUY BUENA (MB)": {
         "desc": "Extremadamente resistente, fresca. Superficie de discontinuidades muy rugosas e inalteradas, cerradas. (Rc > 250 MPa).", 
@@ -170,7 +180,7 @@ st.sidebar.markdown(f"""
     <div class="panel-orientacion-oscuro" style="border-left-color: {info_activa['color']};">
         <b style="color: {info_activa['color']}; font-size: 13px;">🔬 Ensayo de Campo (Picota):</b><br>
         <b>Estado:</b> {info_activa['desc']}<br>
-        <b>Comportamiento:</b> <code style='color: #ffffff; background-color:#0f172a; padding:2px 4px;'>{info_activa['picota']}</code>
+        <b>Comportamiento:</b> <code style='color: #000000; background-color:#ffffff; padding:2px 4px; font-weight:bold;'>{info_activa['picota']}</code>
     </div>
 """, unsafe_allow_html=True)
 
@@ -189,7 +199,7 @@ elif rqd > 50 and rqd <= 75:
 elif rqd > 25 and rqd <= 50:
     fila_activa, estructura_label = 2, "MUY FRACTURADA (MF)"
 else:
-    if num_fragmentos >= 5 and max(fragmentos) <= 35 and rqd < 25:
+    if num_fragmentos >= 4 and max(fragmentos) <= 35 and rqd < 25:
         fila_activa, estructura_label = 4, "TRITURADA O BRECHADA (T)"
     else:
         fila_activa, estructura_label = 3, "INTENSAMENTE FRACTURADA (IF)"
@@ -205,8 +215,7 @@ matriz_letras = [
     ["T/MB",  "T/B",  "T/R",  "T/P",  "T/MP"]
 ]
 
-# MATRIZ HOEK REAL AUDITADA: Ajustada exactamente según el cruce de isolíneas negras de tu imagen.
-# Las celdas "N/A" corresponden a zonas vacías donde no llega ninguna curva de nivel.
+# MATRIZ HOEK REAL: Ajustada exactamente según el cruce de isolíneas negras del ábaco
 matriz_valores_gsi = [
     ["95-90", "85-80", "75-70", "60-55", "N/A"],
     ["90-80", "75-70", "65-60", "55-50", "40-35"],
@@ -284,7 +293,7 @@ filas_tabla = [
     "<b>TRITURADA O BRECHADA (T)</b><br><small style='color:#94a3b8;'>Sin RQD</small>"
 ]
 
-# Definición nítida de Columnas (Condición Superficial) con notas abreviadas de picota
+# Definición nítida de Columnas (Condición Superficial) con notas de campo de la picota
 headers = [
     "<th>MUY BUENA (MB)<br><small style='color:#94a3b8;'>Astilla c/ picota</small></th>", 
     "<th>BUENA (B)<br><small style='color:#94a3b8;'>Varios golpes</small></th>", 
