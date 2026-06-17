@@ -119,7 +119,7 @@ num_fragmentos = st.sidebar.number_input("N° de Fragmentos Registrados:", min_v
 
 st.sidebar.subheader("📐 Registro de Longitudes (cm):")
 fragmentos = []
-valores_defecto = [25, 15, 18, 32, 32]
+valores_defecto = [25, 15, 18, 32]
 
 for i in range(int(num_fragmentos)):
     val_def = valores_defecto[i] if i < len(valores_defecto) else 10
