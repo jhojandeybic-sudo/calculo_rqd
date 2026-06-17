@@ -346,7 +346,7 @@ for i, fila in enumerate(filas_tabla):
                 bg = "#064e3b"; border = "border: 3px solid #4ade80; font-weight: bold; box-shadow: inset 0 0 8px #4ade80;"
             else:
                 bg = "#111827"; border = "border: 1px solid #334155;"
-            contenido = f"<b>{cod_gsi}</b><br><span style='font-size:12px; color:#ffffff;'>Línea: <b>{val_gsi}</b></span>"
+            contenido = f"<b>{cod_gsi}</b><br><span style='font-size:12px; color:#ffffff;'>GSI: <b>{val_gsi}</b></span>"
             
         html += f"<td style='background-color: {bg}; {border}'>{contenido}</td>"
     html += "</tr>"
