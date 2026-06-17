@@ -296,151 +296,149 @@ with col_izq:
         """, unsafe_allow_html=True)
 
 with col_der:
-st.markdown("<b>📐 Reconstrucción Lineal Correlativa del Testigo</b>", unsafe_allow_html=True)
 
-```
-# ==========================================================
-# TESTIGO
-# ==========================================================
+    st.markdown(
+        "<b>📐 Reconstrucción Lineal Correlativa del Testigo</b>",
+        unsafe_allow_html=True
+    )
 
-html_sondaje = """
-<div style='width:100%;'>
-"""
+    # ==========================================================
+    # TESTIGO
+    # ==========================================================
 
-html_sondaje += """
-<div style='
-    border:2px solid #334155;
-    background:#111827;
-    width:100%;
-    height:55px;
-    display:flex;
-    border-radius:6px;
-    overflow:hidden;
-'>
-"""
+    html_sondaje = """
+    <div style='width:100%;'>
+    """
 
-for idx, frag in enumerate(fragmentos):
+    html_sondaje += """
+    <div style='
+        border:2px solid #334155;
+        background:#111827;
+        width:100%;
+        height:55px;
+        display:flex;
+        border-radius:6px;
+        overflow:hidden;
+    '>
+    """
 
-    if frag > 0:
+    for idx, frag in enumerate(fragmentos):
 
-        pct = (frag / longitud_total) * 100
+        if frag > 0:
 
-        color = "#0284c7" if frag >= 10 else "#dc2626"
+            pct = (frag / longitud_total) * 100
+            color = "#0284c7" if frag >= 10 else "#dc2626"
+
+            html_sondaje += f"""
+            <div style='
+                width:{pct}%;
+                background:{color};
+                border-right:1px solid #0f172a;
+            '></div>
+            """
+
+    suma_piezas = sum(fragmentos)
+    perdida_total = longitud_total - suma_piezas
+
+    if perdida_total > 0:
+
+        pct_p = (perdida_total / longitud_total) * 100
 
         html_sondaje += f"""
         <div style='
-            width:{pct}%;
-            background:{color};
-            border-right:1px solid #0f172a;
+            width:{pct_p}%;
+            background:#334155;
         '></div>
         """
 
-suma_piezas = sum(fragmentos)
-perdida_total = longitud_total - suma_piezas
+    html_sondaje += "</div>"
 
-if perdida_total > 0:
+    # ==========================================================
+    # COTAS
+    # ==========================================================
 
-    pct_p = (perdida_total / longitud_total) * 100
-
-    html_sondaje += f"""
+    html_sondaje += """
     <div style='
-        width:{pct_p}%;
-        background:#334155;
-    '></div>
+        display:flex;
+        width:100%;
+        margin-top:4px;
+        align-items:flex-start;
+    '>
     """
 
-html_sondaje += "</div>"
+    for frag in fragmentos:
 
-# ==========================================================
-# COTAS INDIVIDUALES DEBAJO DE CADA FRAGMENTO (TIPO CAD)
-# ==========================================================
+        if frag > 0:
 
-html_sondaje += """
-<div style='
-    display:flex;
-    width:100%;
-    margin-top:4px;
-    align-items:flex-start;
-'>
-"""
+            pct = (frag / longitud_total) * 100
 
-for frag in fragmentos:
+            html_sondaje += f"""
+            <div style='
+                width:{pct}%;
+                text-align:center;
+            '>
 
-    if frag > 0:
+                <svg width="100%" height="40">
 
-        pct = (frag / longitud_total) * 100
+                    <line x1="5%" y1="8" x2="95%" y2="8"
+                        stroke="#94a3b8"
+                        stroke-width="1"/>
 
-        html_sondaje += f"""
-        <div style='
-            width:{pct}%;
-            text-align:center;
-        '>
+                    <line x1="5%" y1="3" x2="5%" y2="13"
+                        stroke="#94a3b8"
+                        stroke-width="1"/>
 
-            <svg width="100%" height="40">
+                    <line x1="95%" y1="3" x2="95%" y2="13"
+                        stroke="#94a3b8"
+                        stroke-width="1"/>
 
-                <line x1="5%" y1="8" x2="95%" y2="8"
-                    stroke="#94a3b8"
-                    stroke-width="1"/>
+                    <text x="50%"
+                          y="28"
+                          fill="#38bdf8"
+                          font-size="11"
+                          font-weight="bold"
+                          text-anchor="middle">
+                        {frag} cm
+                    </text>
 
-                <line x1="5%" y1="3" x2="5%" y2="13"
-                    stroke="#94a3b8"
-                    stroke-width="1"/>
+                </svg>
 
-                <line x1="95%" y1="3" x2="95%" y2="13"
-                    stroke="#94a3b8"
-                    stroke-width="1"/>
+            </div>
+            """
 
-                <text x="50%"
-                      y="28"
-                      fill="#38bdf8"
-                      font-size="11"
-                      font-weight="bold"
-                      text-anchor="middle">
-                    {frag} cm
-                </text>
+    html_sondaje += "</div></div>"
 
-            </svg>
+    st.markdown(html_sondaje, unsafe_allow_html=True)
 
-        </div>
-        """
+    # ==========================================================
+    # FORMULA DEL RQD
+    # ==========================================================
 
-html_sondaje += "</div></div>"
+    st.markdown("### 📐 Desarrollo del Cálculo del RQD")
 
-st.markdown(html_sondaje, unsafe_allow_html=True)
+    fragmentos_rqd = [f for f in fragmentos if f >= 10]
 
-# ==========================================================
-# FORMULA DEL RQD
-# ==========================================================
+    if fragmentos_rqd:
 
-st.markdown("### 📐 Desarrollo del Cálculo del RQD")
+        formula = " + ".join(str(f) for f in fragmentos_rqd)
 
-fragmentos_rqd = [f for f in fragmentos if f >= 10]
+        st.latex(
+            rf"RQD = \frac{{{formula}}}{{{longitud_total}}}\times100"
+        )
 
-if fragmentos_rqd:
+        st.latex(
+            rf"RQD = \frac{{{sum(fragmentos_rqd)}}}{{{longitud_total}}}\times100"
+        )
 
-    formula = " + ".join(str(f) for f in fragmentos_rqd)
+        st.latex(
+            rf"RQD = {rqd:.2f}\%"
+        )
 
-    st.latex(
-        rf"RQD = \frac{{{formula}}}{{{longitud_total}}}\times100"
-    )
+    else:
 
-    st.latex(
-        rf"RQD = \frac{{{sum(fragmentos_rqd)}}}{{{longitud_total}}}\times100"
-    )
-
-    st.latex(
-        rf"RQD = {rqd:.2f}\%"
-    )
-
-else:
-
-    st.latex(
-        rf"RQD = \frac{{0}}{{{longitud_total}}}\times100 = 0\%"
-    )
-```
-
-
-st.markdown("<hr>", unsafe_allow_html=True)
+        st.latex(
+            rf"RQD = \frac{{0}}{{{longitud_total}}}\times100 = 0\%"
+        )
 
 # ==============================================================================
 # AUDITORÍA DE MATRIZ COMPLETA
